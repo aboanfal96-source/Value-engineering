@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منصة توليد تقارير الهندسة القيمية | EXPRO</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📐</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--p:#0B4F6C;--pl:#1A7FA8;--pd:#073B51;--ac:#C8A415;--al:#E0BE2A;--bg:#F4F6F9;--card:#FFF;--tx:#1B1F2A;--tx2:#5A6478;--bd:#DCE2EC;--ok:#0D9668;--wn:#D97706;--no:#DC2626;--sh:0 4px 20px rgba(11,79,108,.07);--r:10px;--rl:16px;--t:.2s ease}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden;line-height:1.7}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--pl);border-radius:3px}
+
+.hd{background:linear-gradient(135deg,var(--pd),var(--p) 60%,var(--pl));position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.18)}
+.hd-top{max-width:1200px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between}
+.br{display:flex;align-items:center;gap:14px}
+.br-logo{width:44px;height:44px;background:var(--ac);border-radius:10px;display:grid;place-items:center;font-weight:900;font-size:14px;color:var(--pd);font-family:'Cairo',sans-serif;box-shadow:0 3px 10px rgba(200,164,21,.35);line-height:1.1;text-align:center}
+.br h1{color:#fff;font-size:19px;font-weight:800;font-family:'Cairo',sans-serif}
+.br-sub{color:rgba(255,255,255,.6);font-size:11px}
+.hd-tag{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#fff;padding:5px 14px;border-radius:16px;font-size:11px}
+
+.sb{background:rgba(0,0,0,.12);padding:0 28px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sb::-webkit-scrollbar{height:0}
+.sb-in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:2px;min-width:max-content}
+.sp{display:flex;align-items:center;gap:7px;padding:10px 14px;font-size:12.5px;font-weight:500;color:rgba(255,255,255,.35);cursor:pointer;transition:var(--t);white-space:nowrap;border-radius:6px;border:none;background:none;font-family:'Tajawal',sans-serif}
+.sp:hover{color:rgba(255,255,255,.6)}.sp.a{color:#fff;background:rgba(255,255,255,.12);font-weight:700}.sp.d{color:var(--al)}
+.sd{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:800;border:2px solid rgba(255,255,255,.2);flex-shrink:0}
+.sp.a .sd{background:var(--ac);color:var(--pd);border-color:var(--ac)}.sp.d .sd{background:var(--ok);border-color:var(--ok);color:#fff}
+.sl{width:18px;height:2px;background:rgba(255,255,255,.12);flex-shrink:0}
+
+.mn{max-width:960px;margin:0 auto;padding:28px 20px 80px}
+.cd{background:var(--card);border-radius:var(--rl);box-shadow:var(--sh);border:1px solid var(--bd);padding:28px;margin-bottom:20px;animation:ci .35s ease both}
+@keyframes ci{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.ct{font-family:'Cairo',sans-serif;font-size:18px;font-weight:800;color:var(--p);margin-bottom:4px;display:flex;align-items:center;gap:10px}
+.ct i{width:34px;height:34px;background:linear-gradient(135deg,var(--p),var(--pl));border-radius:9px;display:grid;place-items:center;color:#fff;font-size:16px;font-style:normal}
+.cs{color:var(--tx2);font-size:13px;margin-bottom:22px;padding-right:44px}
+
+.fg{margin-bottom:18px}
+.fl{display:block;font-weight:700;font-size:13.5px;color:var(--tx);margin-bottom:6px}
+.fl .rq{color:var(--no);margin-right:2px}
+.fl .ht{font-size:11.5px;color:var(--tx2);font-weight:400;margin-right:4px}
+.fi,.fs,.ft{width:100%;padding:10px 14px;border:1.5px solid var(--bd);border-radius:var(--r);font-family:'Tajawal',sans-serif;font-size:14px;color:var(--tx);background:var(--bg);transition:var(--t);direction:rtl}
+.fi:focus,.fs:focus,.ft:focus{outline:none;border-color:var(--pl);background:#fff;box-shadow:0 0 0 3px rgba(26,127,168,.08)}
+.ft{min-height:90px;resize:vertical;line-height:1.9}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fr3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+
+.dl{display:flex;flex-direction:column;gap:10px}
+.di{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);padding:14px;display:flex;gap:10px;align-items:flex-start;animation:ci .25s ease both}
+.dn{width:26px;height:26px;background:var(--p);color:#fff;border-radius:7px;display:grid;place-items:center;font-size:11px;font-weight:800;flex-shrink:0;margin-top:2px}
+.db{flex:1;display:flex;flex-direction:column;gap:7px}
+.db input,.db textarea,.db select{width:100%;padding:7px 10px;border:1px solid var(--bd);border-radius:7px;font-family:'Tajawal',sans-serif;font-size:13px;background:#fff;direction:rtl}
+.db input:focus,.db textarea:focus,.db select:focus{outline:none;border-color:var(--pl)}
+.dg2{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.dg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}
+.bx{background:none;border:none;color:var(--no);cursor:pointer;padding:2px;font-size:16px;opacity:.5;transition:var(--t)}
+.bx:hover{opacity:1}
+.ba{display:inline-flex;align-items:center;gap:5px;padding:8px 18px;background:transparent;border:1.5px dashed var(--pl);border-radius:var(--r);color:var(--p);font-family:'Tajawal',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:var(--t);margin-top:6px}
+.ba:hover{background:rgba(26,127,168,.05);border-color:var(--p)}
+
+.as{display:flex;justify-content:space-between;align-items:center;margin-top:22px;padding-top:20px;border-top:1px solid var(--bd)}
+.bt{padding:10px 28px;border-radius:var(--r);font-family:'Tajawal',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:var(--t);border:none;display:inline-flex;align-items:center;gap:7px}
+.bp{background:linear-gradient(135deg,var(--p),var(--pl));color:#fff;box-shadow:0 3px 12px rgba(11,79,108,.25)}
+.bp:hover{transform:translateY(-1px);box-shadow:0 5px 20px rgba(11,79,108,.35)}
+.bs{background:var(--bg);color:var(--tx);border:1.5px solid var(--bd)}
+.bs:hover{background:#fff;border-color:var(--pl)}
+.bg{background:linear-gradient(135deg,var(--ac),var(--al));color:var(--pd);box-shadow:0 3px 12px rgba(200,164,21,.25);font-size:15px;padding:12px 36px}
+.bg:hover{transform:translateY(-1px);box-shadow:0 5px 20px rgba(200,164,21,.35)}
+
+.inf{background:rgba(26,127,168,.05);border:1px solid rgba(26,127,168,.12);border-radius:var(--r);padding:12px 16px;margin-bottom:18px;font-size:12.5px;color:var(--p);display:flex;gap:7px;align-items:flex-start}
+
+.pp{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);padding:18px;margin-bottom:14px}
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--p)}
+.pn{background:var(--p);color:#fff;padding:3px 14px;border-radius:16px;font-weight:700;font-size:13px}
+
+.pw{background:#fff;border:1.5px solid var(--bd);border-radius:var(--rl);padding:44px 40px;max-width:880px;margin:0 auto;direction:rtl;font-family:'Tajawal',sans-serif;line-height:2}
+.pw h1{font-family:'Cairo',sans-serif;color:var(--p);font-size:24px;text-align:center;margin-bottom:20px;padding-bottom:14px;border-bottom:3px solid var(--ac)}
+.pw h2{font-family:'Cairo',sans-serif;color:var(--p);font-size:18px;margin:22px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--bd)}
+.pw h3{color:var(--pl);font-size:15px;margin:14px 0 6px}
+.pw table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+.pw th{background:var(--p);color:#fff;padding:8px 10px;font-weight:600}
+.pw td{padding:7px 10px;border:1px solid var(--bd)}
+.pw tr:nth-child(even){background:var(--bg)}
+.pw ul{padding-right:22px}
+.pw li{margin-bottom:4px}
+
+.da{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:20px 0}
+
+.wl{text-align:center;padding:50px 20px}
+.wi{width:90px;height:90px;background:linear-gradient(135deg,var(--p),var(--pl));border-radius:22px;display:grid;place-items:center;margin:0 auto 22px;font-size:42px;color:#fff;box-shadow:0 10px 30px rgba(11,79,108,.2)}
+.wl h2{font-family:'Cairo',sans-serif;font-size:26px;color:var(--p);margin-bottom:10px}
+.wl>p{color:var(--tx2);font-size:15px;max-width:580px;margin:0 auto 28px;line-height:1.9}
+.fg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:660px;margin:0 auto 28px}
+.ft-c{background:var(--bg);border-radius:var(--r);padding:18px;text-align:center}
+.ft-c .ic{font-size:26px;margin-bottom:6px}
+.ft-c h4{color:var(--p);font-size:13px;margin-bottom:3px}
+.ft-c p{font-size:11.5px;color:var(--tx2);margin:0}
+
+.nt{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:var(--ok);color:#fff;padding:10px 22px;border-radius:var(--r);font-weight:600;font-size:13px;box-shadow:0 12px 40px rgba(0,0,0,.15);z-index:2000;animation:ni .3s ease both}
+@keyframes ni{from{opacity:0;transform:translateX(-50%) translateY(-16px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+.lo{position:fixed;inset:0;background:rgba(0,0,0,.45);display:grid;place-items:center;z-index:1000;backdrop-filter:blur(3px)}
+.lb{background:#fff;border-radius:var(--rl);padding:40px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.15)}
+.sn{width:40px;height:40px;border:3.5px solid var(--bd);border-top-color:var(--p);border-radius:50%;animation:sp .7s linear infinite;margin:0 auto 14px}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+.fo{text-align:center;padding:20px;color:var(--tx2);font-size:12.5px;border-top:1px solid var(--bd);margin-top:36px}
+.fo strong{color:var(--p)}
+
+@media(max-width:768px){
+.hd-top{padding:10px 14px}.br h1{font-size:15px}.hd-tag{display:none}
+.sb{padding:0 14px}.sp span:not(.sd){display:none}.sp{padding:8px 10px}
+.mn{padding:14px 10px 60px}.cd{padding:18px 14px}
+.fr2,.fr3,.dg2,.dg3{grid-template-columns:1fr}
+.pw{padding:20px 14px}.as{flex-direction:column;gap:10px}.as .bt{width:100%;justify-content:center}
+.fg-grid{grid-template-columns:1fr}.wl{padding:30px 14px}
+}
+@media print{.hd,.sb,.as,.da,.bt,.fo,.nt{display:none!important}.mn{padding:0;max-width:100%}.cd{box-shadow:none;border:none;padding:0;margin:0}.pw{border:none;padding:20px;box-shadow:none}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const S={
+  step:0,loading:false,notif:'',
+  p:{pName:'',pNum:'',gov:'',cons:'',dCons:'',bCost:'',bVAT:'',sDate:'',wsS:'',wsE:'',wsD:'3',dPhase:'',pIntro:'',pScope:'',pType:''},
+  team:[{n:'',e:'',r:'',s:'',ph:'',em:''}],
+  docs:[{n:''}],
+  attrs:[{n:'',l:'8'}],
+  funcs:[{el:'',fn:'',cl:''}],
+  pFn:[''],
+  ideas:[{nu:'',de:'',ev:''}],
+  props:[{nu:'VE-01',ti:'',cur:'',nw:'',pro:'',con:'',ci:'',it:'تفادي تكلفة',af:'1.0',ar:'',pi:'',rk:''}],
+  costs:[{n:'',c:''}],
+};
+
+const STP=[{l:'البداية'},{l:'بيانات المشروع'},{l:'الفريق والوثائق'},{l:'التحليل والنماذج'},{l:'الأفكار والتقييم'},{l:'المقترحات'},{l:'المعاينة والتصدير'}];
+
+const E=s=>s?s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'):'';
+const FN=n=>n?Number(n).toLocaleString('ar-SA'):'-';
+const FD=d=>d?new Date(d).toLocaleDateString('ar-SA',{year:'numeric',month:'long',day:'numeric'}):'___/___/______';
+function FI(el){let v=el.value.replace(/[^\d.]/g,'');if(v){const p=v.split('.');p[0]=parseInt(p[0]).toLocaleString('en');el.value=p.join('.')}}
+function NT(m){S.notif=m;R();setTimeout(()=>{S.notif='';R()},3500)}
+function SF(){['pName','pNum','gov','cons','dCons','bCost','bVAT','sDate','wsS','wsE','wsD','dPhase','pIntro','pScope','pType'].forEach(f=>{const e=document.getElementById(f);if(e)S.p[f]=e.value})}
+function GO(s){SF();S.step=s;R();scrollTo(0,0)}
+function NX(s){SF();S.step=s;if(s===6){S.loading=true;R();setTimeout(()=>{S.loading=false;R();scrollTo(0,0)},1500)}else{R();scrollTo(0,0)}}
+function AD(a,o){a.push(o);R()}
+function RM(a,i){a.splice(i,1);R()}
+function UP(a,i,k,v){a[i][k]=v}
+
+// ====== AUTO GENERATION ENGINE ======
+function autoGen(){
+  const d=S.p;
+  const pn=d.pName||'المشروع';
+  const gov=d.gov||'الجهة الحكومية';
+  const bc=parseFloat((d.bCost||'0').replace(/,/g,''));
+  const pt=d.pType||'إنشائي';
+
+  // Auto-generate cost items if empty
+  if(S.costs.length===1&&!S.costs[0].n){
+    if(pt==='إنشائي'||pt==='بنية تحتية'){
+      S.costs=[
+        {n:'أعمال الخرسانة والهيكل الإنشائي',c:Math.round(bc*0.30).toLocaleString('en')},
+        {n:'أعمال التشطيبات والتكسيات',c:Math.round(bc*0.15).toLocaleString('en')},
+        {n:'الأعمال الكهربائية',c:Math.round(bc*0.12).toLocaleString('en')},
+        {n:'الأعمال الميكانيكية والتكييف',c:Math.round(bc*0.14).toLocaleString('en')},
+        {n:'أعمال الموقع والبنية التحتية',c:Math.round(bc*0.10).toLocaleString('en')},
+        {n:'الأعمال الصحية والسباكة',c:Math.round(bc*0.08).toLocaleString('en')},
+        {n:'أعمال الحماية من الحريق',c:Math.round(bc*0.05).toLocaleString('en')},
+        {n:'أعمال أخرى ومصاريف عامة',c:Math.round(bc*0.06).toLocaleString('en')},
+      ];
+    } else {
+      S.costs=[
+        {n:'أعمال البند الرئيسي الأول',c:Math.round(bc*0.35).toLocaleString('en')},
+        {n:'أعمال البند الرئيسي الثاني',c:Math.round(bc*0.25).toLocaleString('en')},
+        {n:'أعمال البند الرئيسي الثالث',c:Math.round(bc*0.20).toLocaleString('en')},
+        {n:'أعمال إضافية ومصاريف عامة',c:Math.round(bc*0.20).toLocaleString('en')},
+      ];
+    }
+  }
+
+  // Auto-generate performance attributes if empty
+  if(S.attrs.length===1&&!S.attrs[0].n){
+    S.attrs=[
+      {n:'كفاءة الأداء الوظيفي',l:'9'},
+      {n:'الاستدامة وكفاءة الطاقة',l:'8'},
+      {n:'السلامة والأمان',l:'10'},
+      {n:'سهولة الصيانة والتشغيل',l:'8'},
+      {n:'الجودة والمتانة',l:'9'},
+      {n:'المرونة والتوسع المستقبلي',l:'7'},
+    ];
+  }
+
+  // Auto-generate functions if empty
+  if(S.funcs.length===1&&!S.funcs[0].el){
+    S.funcs=[
+      {el:'المبنى الرئيسي',fn:'يوفر المساحات',cl:'أساسية'},
+      {el:'النظام الإنشائي',fn:'يتحمل الأحمال',cl:'أساسية'},
+      {el:'نظام التكييف',fn:'يضبط الحرارة',cl:'أساسية'},
+      {el:'النظام الكهربائي',fn:'يوزع الطاقة',cl:'أساسية'},
+      {el:'شبكة السباكة',fn:'ينقل المياه',cl:'أساسية'},
+      {el:'أعمال التشطيب',fn:'يحسّن المظهر',cl:'ثانوية'},
+      {el:'نظام الحريق',fn:'يحمي الأرواح',cl:'أساسية'},
+      {el:'أعمال الموقع',fn:'يهيئ البيئة',cl:'ثانوية'},
+      {el:'العزل المائي',fn:'يمنع التسرب',cl:'مطلوبة'},
+      {el:'التصميم المعماري',fn:'يلبي الاحتياج',cl:'أساسية'},
+    ];
+  }
+
+  // Auto-generate priority functions if empty
+  if(S.pFn.length===1&&!S.pFn[0]){
+    S.pFn=['يتحمل الأحمال (النظام الإنشائي)','يضبط الحرارة (نظام التكييف)','يوزع الطاقة (النظام الكهربائي)'];
+  }
+
+  // Auto-generate ideas if empty
+  if(S.ideas.length===1&&!S.ideas[0].de){
+    S.ideas=[
+      {nu:'01',de:'استخدام مواد بناء محلية الصنع بدلاً من المستوردة لتقليل التكلفة وتطبيق آلية المحتوى المحلي',ev:'A'},
+      {nu:'02',de:'تحسين نظام التكييف باستخدام وحدات ذات كفاءة طاقة أعلى وفق معايير الاستدامة',ev:'A'},
+      {nu:'03',de:'إعادة تصميم شبكة الصرف لتقليل أطوال المواسير وتبسيط المسارات',ev:'B'},
+      {nu:'04',de:'استخدام خرسانة مسبقة الصب بدلاً من الصب الموقعي لتسريع التنفيذ',ev:'B'},
+      {nu:'05',de:'تعديل مواصفات التشطيبات الداخلية لاستخدام بدائل اقتصادية بنفس الجودة',ev:'A'},
+      {nu:'06',de:'دمج بعض الفراغات متعددة الاستخدام لتقليل المساحة الإجمالية',ev:'C'},
+      {nu:'07',de:'تغيير نوع العزل الحراري إلى مادة أعلى كفاءة وأقل تكلفة',ev:'B'},
+      {nu:'08',de:'إلغاء بعض العناصر الزخرفية غير الوظيفية في الواجهات',ev:'C'},
+      {nu:'09',de:'استخدام إضاءة LED موفرة بدلاً من الإضاءة التقليدية',ev:'A'},
+      {nu:'10',de:'تعديل تصميم المواقف لزيادة الكفاءة وتقليل أعمال الحفر',ev:'D'},
+      {nu:'11',de:'استخدام أنظمة تحكم ذكية مركزية لإدارة المبنى',ev:'C'},
+      {nu:'12',de:'تقليل عدد المصاعد مع زيادة سعة المصاعد المتبقية',ev:'D'},
+    ];
+  }
+
+  // Auto-generate proposals if empty
+  if(S.props.length===1&&!S.props[0].ti){
+    const devIdeas=S.ideas.filter(i=>['A','B'].includes(i.ev));
+    S.props=[];
+    const propTemplates=[
+      {
+        nu:'VE-01',ti:'استخدام مواد بناء محلية الصنع',
+        cur:'يعتمد التصميم الحالي على استخدام مواد بناء متنوعة المصادر، بما في ذلك مواد مستوردة من الخارج لعدد من البنود الإنشائية والتشطيبات، مما يرفع التكلفة ويزيد مدة التوريد.',
+        nw:'استبدال المواد المستوردة بمواد بناء محلية الصنع معتمدة ومطابقة للمواصفات الفنية المطلوبة، وذلك لكامل بنود المشروع حسب توفرها في الأسواق المحلية، تماشياً مع التعميمات الوزارية لتطبيق آلية المحتوى المحلي.',
+        pro:'تقليل تكلفة التوريد بنسبة تقديرية 8-12%\nتقصير مدة التوريد وتسريع التنفيذ\nدعم الصناعة المحلية وتطبيق آلية المحتوى المحلي\nسهولة توفير قطع الغيار والصيانة مستقبلاً\nتقليل المخاطر المرتبطة بالشحن والجمارك',
+        con:'قد تكون بعض المواد المحلية أقل في المتانة مقارنة بالمستوردة في حالات محدودة\nيتطلب التحقق من مطابقة المواصفات الفنية لكل بند',
+        ci:Math.round(bc*0.06).toLocaleString('en'),it:'تفادي تكلفة',af:'1.0',ar:'',
+        pi:'إيجابي - المواد المحلية تلبي متطلبات الأداء المحددة وتتوافق مع المواصفات الفنية، مع تحسن في سهولة الصيانة والتشغيل',
+        rk:'مخاطر منخفضة - يمكن التحقق من جودة المواد قبل الاعتماد من خلال الفحوصات المخبرية والشهادات المعتمدة'
+      },
+      {
+        nu:'VE-02',ti:'تحسين كفاءة نظام التكييف',
+        cur:'يعتمد التصميم الحالي على وحدات تكييف تقليدية بمعامل أداء موسمي (SEER) متوسط، مع نظام تحكم يدوي في بعض المناطق.',
+        nw:'استخدام وحدات تكييف ذات كفاءة طاقة عالية بمعامل أداء موسمي أعلى (SEER 18+)، مع نظام تحكم ذكي مركزي يتيح ضبط الحرارة حسب الإشغال والوقت، مما يحقق وفراً في استهلاك الطاقة على المدى الطويل.',
+        pro:'تقليل استهلاك الطاقة بنسبة 20-30% سنوياً\nتحسين مستوى الراحة الحرارية\nتقليل تكاليف التشغيل والصيانة الدورية\nالتوافق مع معايير الاستدامة ومتطلبات كود البناء السعودي',
+        con:'تكلفة أولية أعلى للوحدات عالية الكفاءة\nيتطلب تدريب فريق التشغيل على النظام الذكي',
+        ci:Math.round(bc*0.03).toLocaleString('en'),it:'تفادي تكلفة',af:'0.8',ar:'معامل تعديل لاحتساب التكلفة الإضافية للوحدات عالية الكفاءة',
+        pi:'إيجابي بشكل ملحوظ - يرفع مستوى سمة كفاءة الأداء الوظيفي والاستدامة',
+        rk:'مخاطر منخفضة - تقنيات مجربة ومعتمدة في مشاريع مماثلة بالمملكة'
+      },
+      {
+        nu:'VE-03',ti:'تعديل مواصفات التشطيبات الداخلية',
+        cur:'يتضمن التصميم الحالي استخدام تشطيبات داخلية بمواصفات عالية في جميع الفراغات بما فيها المناطق الخدمية والمساندة.',
+        nw:'تصنيف الفراغات حسب الأهمية والاستخدام، واستخدام تشطيبات عالية المواصفات في الفراغات الرئيسية والواجهات فقط، مع استخدام بدائل اقتصادية مطابقة للمواصفات في الفراغات الخدمية والمساندة.',
+        pro:'تفادي تكاليف بنسبة تقديرية 4-6% من بند التشطيبات\nالحفاظ على المظهر الجمالي في المناطق الرئيسية\nتسريع أعمال التشطيب في المناطق الخدمية',
+        con:'اختلاف مستوى التشطيب بين الفراغات\nيتطلب إعادة مراجعة جداول الكميات',
+        ci:Math.round(bc*0.025).toLocaleString('en'),it:'تفادي تكلفة',af:'1.0',ar:'',
+        pi:'محايد - لا يؤثر سلباً على سمات الأداء الرئيسية مع الحفاظ على الجودة في المناطق الأساسية',
+        rk:'مخاطر منخفضة جداً - ممارسة شائعة ومعتمدة في المشاريع الحكومية'
+      },
+    ];
+    S.props=propTemplates;
+  }
+}
+
+// ====== RENDER ======
+function R(){
+  document.getElementById('app').innerHTML=`
+    ${rHdr()}
+    <div class="mn">
+      ${S.loading?rLd():''}
+      ${S.notif?`<div class="nt">${S.notif}</div>`:''}
+      ${rStep()}
+    </div>
+    <div class="fo">بواسطة المهندس <strong>جاسر العتيبي</strong></div>
+  `;
+  aEvt();
+}
+
+function rHdr(){
+  return `<div class="hd"><div class="hd-top"><div class="br"><div class="br-logo">هـ ق</div><div><h1>منصة توليد تقارير الهندسة القيمية</h1><div class="br-sub">وفق نموذج هيئة كفاءة الإنفاق والمشروعات الحكومية (EXPRO)</div></div></div><div class="hd-tag">EXPRO Standard</div></div>
+  <div class="sb"><div class="sb-in">${STP.map((s,i)=>`${i?'<div class="sl"></div>':''}<button class="sp ${i===S.step?'a':''} ${i<S.step?'d':''}" onclick="GO(${i})"><span class="sd">${i<S.step?'✓':i+1}</span><span>${s.l}</span></button>`).join('')}</div></div></div>`;
+}
+
+function rLd(){return `<div class="lo"><div class="lb"><div class="sn"></div><div style="font-weight:700;font-size:15px;color:var(--p);margin-bottom:3px">جارِ توليد التقرير الاحترافي...</div><div style="color:var(--tx2);font-size:12px">يتم صياغة جميع الأقسام تلقائياً وفق معايير EXPRO</div></div></div>`}
+
+function rStep(){switch(S.step){case 0:return r0();case 1:return r1();case 2:return r2();case 3:return r3();case 4:return r4();case 5:return r5();case 6:return r6()}}
+
+function rAct(pv,nx){return `<div class="as"><button class="bt bs" onclick="GO(${pv})">→ السابق</button><button class="bt bp" onclick="NX(${nx})">${nx===6?'توليد التقرير الاحترافي ←':'التالي ←'}</button></div>`}
+
+// S0: Welcome
+function r0(){return `<div class="cd"><div class="wl"><div class="wi">📐</div><h2>منصة توليد تقارير الهندسة القيمية</h2><p>أدخل بيانات المشروع الأساسية وسيتولى النظام صياغة تقرير احترافي كامل بجميع الأقسام: خطة العمل، تحليل التكاليف، سمات الأداء، تحليل الوظائف، طرح الأفكار، التقييم، والمقترحات التطويرية.</p>
+<div class="fg-grid"><div class="ft-c"><div class="ic">🤖</div><h4>توليد ذكي</h4><p>صياغة تلقائية لكل أقسام التقرير</p></div><div class="ft-c"><div class="ic">📊</div><h4>حسابات تلقائية</h4><p>الأثر المالي ونسب التفادي</p></div><div class="ft-c"><div class="ic">📥</div><h4>تصدير احترافي</h4><p>Word و PDF جاهز للاعتماد</p></div></div>
+<button class="bt bg" onclick="GO(1)">ابدأ إعداد التقرير ←</button></div></div>`}
+
+// S1: Project Data
+function r1(){const d=S.p;return `<div class="cd">
+<div class="ct"><i>📋</i> بيانات المشروع الأساسية</div>
+<div class="cs">أدخل المعلومات الأساسية — سيتم توليد باقي محتوى التقرير تلقائياً بناءً على هذه البيانات</div>
+<div class="inf">💡 كلما أدخلت معلومات أكثر، كان التقرير المولّد أكثر دقة واحترافية</div>
+
+<div class="fg"><label class="fl"><span class="rq">*</span> اسم المشروع</label><input class="fi" id="pName" value="${E(d.pName)}" placeholder="مثال: مشروع إنشاء وتنفيذ مخرجات الدراسة الهيدرولوجية..."></div>
+<div class="fr2">
+<div class="fg"><label class="fl">رقم المشروع</label><input class="fi" id="pNum" value="${E(d.pNum)}"></div>
+<div class="fg"><label class="fl"><span class="rq">*</span> الجهة الحكومية</label><input class="fi" id="gov" value="${E(d.gov)}" placeholder="مثال: جامعة أم القرى"></div></div>
+<div class="fr2">
+<div class="fg"><label class="fl"><span class="rq">*</span> استشاري الهندسة القيمية</label><input class="fi" id="cons" value="${E(d.cons)}"></div>
+<div class="fg"><label class="fl">استشاري التصميم</label><input class="fi" id="dCons" value="${E(d.dCons)}"></div></div>
+<div class="fr2">
+<div class="fg"><label class="fl"><span class="rq">*</span> التكلفة الأساسية (بدون ضريبة)</label><input class="fi" id="bCost" value="${E(d.bCost)}" placeholder="بالريال السعودي" oninput="FI(this)"></div>
+<div class="fg"><label class="fl">مع الضريبة 15% <span class="ht">(تلقائي)</span></label><input class="fi" id="bVAT" value="${E(d.bVAT)}" readonly style="background:#eee"></div></div>
+<div class="fr3">
+<div class="fg"><label class="fl">تاريخ التقرير</label><input class="fi" id="sDate" type="date" value="${d.sDate}"></div>
+<div class="fg"><label class="fl">بداية الورشة</label><input class="fi" id="wsS" type="date" value="${d.wsS}"></div>
+<div class="fg"><label class="fl">نهاية الورشة</label><input class="fi" id="wsE" type="date" value="${d.wsE}"></div></div>
+<div class="fr3">
+<div class="fg"><label class="fl">مرحلة التصميم</label><select class="fs" id="dPhase"><option value="">اختر</option>${['التصميم المبدئي','التصميم التفصيلي','مرحلة 30%','مرحلة 60%','مرحلة 90%'].map(o=>`<option ${d.dPhase===o?'selected':''}>${o}</option>`).join('')}</select></div>
+<div class="fg"><label class="fl">أيام الورشة</label><select class="fs" id="wsD">${[2,3,4,5].map(n=>`<option ${d.wsD==n?'selected':''}>${n}</option>`).join('')}</select></div>
+<div class="fg"><label class="fl">نوع المشروع</label><select class="fs" id="pType"><option value="">اختر</option>${['إنشائي','بنية تحتية','تقنية معلومات','تطوير وتأهيل','طرق ونقل','مياه وصرف','أخرى'].map(o=>`<option ${d.pType===o?'selected':''}>${o}</option>`).join('')}</select></div></div>
+<div class="fg"><label class="fl">مقدمة عن المشروع</label><textarea class="ft" id="pIntro" placeholder="وصف موجز... (اتركه فارغاً وسيتم توليده تلقائياً)">${E(d.pIntro)}</textarea></div>
+<div class="fg"><label class="fl">نطاق العمل والموقع</label><textarea class="ft" id="pScope" placeholder="وصف النطاق... (اتركه فارغاً وسيتم توليده تلقائياً)">${E(d.pScope)}</textarea></div>
+${rAct(0,2)}
+</div>`}
+
+// S2: Team
+function r2(){return `<div class="cd"><div class="ct"><i>👥</i> فريق الهندسة القيمية</div><div class="cs">أعضاء الفريق — يمكنك تركها فارغة وإضافتها لاحقاً في ملف Word</div>
+<div class="dl">${S.team.map((m,i)=>`<div class="di"><span class="dn">${i+1}</span><div class="db"><div class="dg2">
+<input placeholder="الاسم" value="${E(m.n)}" onchange="UP(S.team,${i},'n',this.value)">
+<input placeholder="الجهة" value="${E(m.e)}" onchange="UP(S.team,${i},'e',this.value)">
+<input placeholder="الوظيفة" value="${E(m.r)}" onchange="UP(S.team,${i},'r',this.value)">
+<input placeholder="التخصص" value="${E(m.s)}" onchange="UP(S.team,${i},'s',this.value)">
+</div></div>${S.team.length>1?`<button class="bx" onclick="RM(S.team,${i})">✕</button>`:''}</div>`).join('')}</div>
+<button class="ba" onclick="AD(S.team,{n:'',e:'',r:'',s:'',ph:'',em:''})">+ إضافة عضو</button></div>
+
+<div class="cd"><div class="ct"><i>📁</i> الوثائق المرجعية</div><div class="cs">المستندات المرجعية — اتركها فارغة وسيتم إضافة بنود افتراضية</div>
+<div class="dl">${S.docs.map((d,i)=>`<div class="di"><span class="dn">${i+1}</span><div class="db"><input placeholder="اسم المستند" value="${E(d.n)}" onchange="UP(S.docs,${i},'n',this.value)"></div>${S.docs.length>1?`<button class="bx" onclick="RM(S.docs,${i})">✕</button>`:''}</div>`).join('')}</div>
+<button class="ba" onclick="AD(S.docs,{n:''})">+ إضافة مستند</button>
+${rAct(1,3)}</div>`}
+
+// S3: Analysis
+function r3(){return `<div class="cd"><div class="ct"><i>💰</i> نماذج تحليل التكاليف</div><div class="cs">بنود التكلفة — <strong>اتركها فارغة وسيتم توليدها تلقائياً</strong> بناءً على نوع المشروع والتكلفة</div>
+<div class="dl">${S.costs.map((c,i)=>`<div class="di"><span class="dn">${i+1}</span><div class="db"><div class="dg2">
+<input placeholder="اسم البند" value="${E(c.n)}" onchange="UP(S.costs,${i},'n',this.value)">
+<input placeholder="التكلفة (ريال)" value="${E(c.c)}" onchange="UP(S.costs,${i},'c',this.value)" oninput="FI(this)">
+</div></div>${S.costs.length>1?`<button class="bx" onclick="RM(S.costs,${i})">✕</button>`:''}</div>`).join('')}</div>
+<button class="ba" onclick="AD(S.costs,{n:'',c:''})">+ إضافة بند</button></div>
+
+<div class="cd"><div class="ct"><i>⭐</i> سمات الأداء ونموذج الجودة</div><div class="cs">سمات الأداء — <strong>اتركها فارغة وسيتم توليدها تلقائياً</strong></div>
+<div class="dl">${S.attrs.map((a,i)=>`<div class="di"><span class="dn">${i+1}</span><div class="db"><div class="dg2">
+<input placeholder="سمة الأداء" value="${E(a.n)}" onchange="UP(S.attrs,${i},'n',this.value)">
+<select onchange="UP(S.attrs,${i},'l',this.value)">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<option ${a.l==n?'selected':''}>${n}</option>`).join('')}</select>
+</div></div>${S.attrs.length>1?`<button class="bx" onclick="RM(S.attrs,${i})">✕</button>`:''}</div>`).join('')}</div>
+<button class="ba" onclick="AD(S.attrs,{n:'',l:'8'})">+ سمة</button>
+${rAct(2,4)}</div>`}
+
+// S4: Ideas
+function r4(){return `<div class="cd"><div class="ct"><i>🧩</i> تحليل الوظائف</div><div class="cs">قائمة الوظائف — <strong>اتركها فارغة وسيتم توليدها تلقائياً</strong></div>
+<div class="dl">${S.funcs.map((f,i)=>`<div class="di"><span class="dn">${i+1}</span><div class="db"><div class="dg3">
+<input placeholder="عنصر المشروع" value="${E(f.el)}" onchange="UP(S.funcs,${i},'el',this.value)">
+<input placeholder="الوظيفة (فعل + اسم)" value="${E(f.fn)}" onchange="UP(S.funcs,${i},'fn',this.value)">
+<select onchange="UP(S.funcs,${i},'cl',this.value)"><option value="">التصنيف</option>${['أساسية','ثانوية','مطلوبة'].map(o=>`<option ${f.cl===o?'selected':''}>${o}</option>`).join('')}</select>
+</div></div>${S.funcs.length>1?`<button class="bx" onclick="RM(S.funcs,${i})">✕</button>`:''}</div>`).join('')}</div>
+<button class="ba" onclick="AD(S.funcs,{el:'',fn:'',cl:''})">+ وظيفة</button>
+<div class="fg" style="margin-top:16px"><label class="fl">الوظائف ذات الأولوية</label>
+${S.pFn.map((p,i)=>`<div style="display:flex;gap:7px;margin-bottom:7px"><input class="fi" value="${E(p)}" onchange="S.pFn[${i}]=this.value" style="flex:1">${S.pFn.length>1?`<button class="bx" onclick="S.pFn.splice(${i},1);R()">✕</button>`:''}</div>`).join('')}
+<button class="ba" onclick="S.pFn.push('');R()">+ أولوية</button></div></div>
+
+<div class="cd"><div class="ct"><i>💡</i> طرح الأفكار والتقييم</div><div class="cs">الأفكار — <strong>اتركها فارغة وسيتم توليد أفكار نموذجية تلقائياً</strong></div>
+<div class="dl">${S.ideas.map((id,i)=>`<div class="di"><span class="dn">${i+1}</span><div class="db"><div class="dg3">
+<input placeholder="رقم" value="${E(id.nu)}" onchange="UP(S.ideas,${i},'nu',this.value)" style="max-width:80px">
+<input placeholder="وصف الفكرة" value="${E(id.de)}" onchange="UP(S.ideas,${i},'de',this.value)">
+<select onchange="UP(S.ideas,${i},'ev',this.value)" style="max-width:80px"><option value="">-</option>${['A','B','C','D'].map(o=>`<option ${id.ev===o?'selected':''}>${o}</option>`).join('')}</select>
+</div></div>${S.ideas.length>1?`<button class="bx" onclick="RM(S.ideas,${i})">✕</button>`:''}</div>`).join('')}</div>
+<button class="ba" onclick="AD(S.ideas,{nu:'',de:'',ev:''})">+ فكرة</button>
+${rAct(3,5)}</div>`}
+
+// S5: Proposals
+function r5(){return `<div class="cd"><div class="ct"><i>📝</i> المقترحات التطويرية</div><div class="cs">المقترحات — <strong>اتركها فارغة وسيتم توليد مقترحات تطويرية احترافية تلقائياً</strong></div>
+<div class="inf">💡 النظام سيولّد مقترحات مفصلة تشمل: الوضع الراهن، البديل، المزايا، السلبيات، الأثر المالي، وتحليل المخاطر</div>
+${S.props.map((p,i)=>`<div class="pp"><div class="ph"><div class="pn">المقترح ${p.nu||'VE-0'+(i+1)}</div>${S.props.length>1?`<button class="bx" onclick="RM(S.props,${i})">حذف ✕</button>`:''}</div>
+<div class="fr2"><div class="fg"><label class="fl">رقم المقترح</label><input class="fi" value="${E(p.nu)}" onchange="UP(S.props,${i},'nu',this.value)"></div>
+<div class="fg"><label class="fl">العنوان</label><input class="fi" value="${E(p.ti)}" onchange="UP(S.props,${i},'ti',this.value)"></div></div>
+<div class="fg"><label class="fl">التصميم الأساسي</label><textarea class="ft" onchange="UP(S.props,${i},'cur',this.value)">${E(p.cur)}</textarea></div>
+<div class="fg"><label class="fl">المقترح البديل</label><textarea class="ft" onchange="UP(S.props,${i},'nw',this.value)">${E(p.nw)}</textarea></div>
+<div class="fr2"><div class="fg"><label class="fl">المزايا</label><textarea class="ft" style="min-height:70px" onchange="UP(S.props,${i},'pro',this.value)">${E(p.pro)}</textarea></div>
+<div class="fg"><label class="fl">السلبيات</label><textarea class="ft" style="min-height:70px" onchange="UP(S.props,${i},'con',this.value)">${E(p.con)}</textarea></div></div>
+<div class="fr3"><div class="fg"><label class="fl">الأثر المالي</label><input class="fi" value="${E(p.ci)}" onchange="UP(S.props,${i},'ci',this.value)" oninput="FI(this)"></div>
+<div class="fg"><label class="fl">التصنيف</label><select class="fs" onchange="UP(S.props,${i},'it',this.value)"><option ${p.it==='تفادي تكلفة'?'selected':''}>تفادي تكلفة</option><option ${p.it==='تكلفة إضافية'?'selected':''}>تكلفة إضافية</option></select></div>
+<div class="fg"><label class="fl">معامل التعديل</label><input class="fi" value="${E(p.af)}" onchange="UP(S.props,${i},'af',this.value)"></div></div>
+<div class="fg"><label class="fl">مبرر المعامل</label><input class="fi" value="${E(p.ar)}" onchange="UP(S.props,${i},'ar',this.value)"></div>
+<div class="fg"><label class="fl">أثر الأداء</label><textarea class="ft" style="min-height:55px" onchange="UP(S.props,${i},'pi',this.value)">${E(p.pi)}</textarea></div>
+<div class="fg"><label class="fl">المخاطر</label><textarea class="ft" style="min-height:55px" onchange="UP(S.props,${i},'rk',this.value)">${E(p.rk)}</textarea></div>
+</div>`).join('')}
+<button class="ba" onclick="AD(S.props,{nu:'VE-0'+(S.props.length+1),ti:'',cur:'',nw:'',pro:'',con:'',ci:'',it:'تفادي تكلفة',af:'1.0',ar:'',pi:'',rk:''})">+ مقترح</button>
+${rAct(4,6)}</div>`}
+
+// S6: Preview
+function r6(){
+  autoGen(); // Run auto-generation
+  return `<div class="cd"><div class="ct"><i>📄</i> التقرير النهائي</div><div class="cs">تم توليد التقرير — يمكنك تحميله أو تعديله</div>
+<div class="da"><button class="bt bg" onclick="DW()">📥 تحميل Word</button><button class="bt bp" onclick="DP()">📥 طباعة PDF</button><button class="bt bs" onclick="GO(1)">← تعديل</button></div>
+<div class="pw" id="rpt">${GR()}</div>
+<div class="da" style="margin-top:20px"><button class="bt bg" onclick="DW()">📥 تحميل Word</button><button class="bt bp" onclick="DP()">📥 طباعة PDF</button></div></div>`}
+
+// ====== CHART GENERATORS ======
+function pieChart(items,bc){
+  if(!items.length||!bc)return '';
+  const colors=['#0B4F6C','#1A7FA8','#2196F3','#4CAF50','#FF9800','#E91E63','#9C27B0','#00BCD4','#795548','#607D8B'];
+  let total=0;items.forEach(c=>{total+=parseFloat((c.c||'0').replace(/,/g,''))});
+  if(!total)return '';
+  let angle=0;const cx=150,cy=150,r=130;
+  let paths='',legends='';
+  items.forEach((c,i)=>{
+    const v=parseFloat((c.c||'0').replace(/,/g,''));
+    const pct=v/total;const a=pct*360;
+    const sr=angle*Math.PI/180;const er=(angle+a)*Math.PI/180;
+    const la=a>180?1:0;
+    const x1=cx+r*Math.cos(sr),y1=cy+r*Math.sin(sr);
+    const x2=cx+r*Math.cos(er),y2=cy+r*Math.sin(er);
+    paths+=`<path d="M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${la},1 ${x2},${y2} Z" fill="${colors[i%colors.length]}" stroke="#fff" stroke-width="2"/>`;
+    const mid=(angle+a/2)*Math.PI/180;
+    const tx=cx+(r*0.65)*Math.cos(mid),ty=cy+(r*0.65)*Math.sin(mid);
+    if(pct>0.04)paths+=`<text x="${tx}" y="${ty}" text-anchor="middle" fill="#fff" font-size="11" font-weight="700" font-family="Tajawal">${(pct*100).toFixed(0)}%</text>`;
+    legends+=`<div style="display:flex;align-items:center;gap:6px;margin:3px 0"><div style="width:14px;height:14px;border-radius:3px;background:${colors[i%colors.length]};flex-shrink:0"></div><span style="font-size:11px">${E(c.n)}</span></div>`;
+    angle+=a;
+  });
+  return `<div style="text-align:center;margin:20px 0"><h3 style="margin-bottom:12px">4-2-2 تكاليف المشروع في مخطط بياني دائري</h3><p style="font-size:13px;margin-bottom:12px">يوضح المخطط الدائري التالي توزيع تكاليف المشروع على البنود الرئيسية، يمثل كل قطاع نسبة كل بند من إجمالي التكلفة الكلية.</p><div style="display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap"><svg viewBox="0 0 300 300" width="280" height="280" style="max-width:100%">${paths}</svg><div style="text-align:right">${legends}</div></div></div>`;
+}
+
+function barChart(items,bc){
+  if(!items.length||!bc)return '';
+  const colors=['#0B4F6C','#E91E63','#9E9E9E','#4CAF50','#FF9800','#2196F3','#9C27B0','#00BCD4'];
+  let maxV=0;items.forEach(c=>{const v=parseFloat((c.c||'0').replace(/,/g,''));if(v>maxV)maxV=v});
+  if(!maxV)return '';
+  const bh=32,gap=8,w=600,pad=140;
+  const h=items.length*(bh+gap)+40;
+  let bars='';
+  items.forEach((c,i)=>{
+    const v=parseFloat((c.c||'0').replace(/,/g,''));
+    const bw=(v/maxV)*(w-pad-20);
+    const y=i*(bh+gap)+20;
+    bars+=`<rect x="${pad}" y="${y}" width="${bw}" height="${bh}" rx="4" fill="${colors[i%colors.length]}"/>`;
+    bars+=`<text x="${pad-6}" y="${y+bh/2+4}" text-anchor="end" font-size="11" font-family="Tajawal" fill="#333">${E(c.n)}</text>`;
+    bars+=`<text x="${pad+bw+6}" y="${y+bh/2+4}" font-size="11" font-family="Tajawal" fill="#333" font-weight="700">${Number(v).toLocaleString('en')}</text>`;
+  });
+  return `<div style="text-align:center;margin:20px 0"><h3 style="margin-bottom:12px">4-2-1 تكاليف المشروع في مخطط بياني شريطي</h3><p style="font-size:13px;margin-bottom:12px">تم إعداد المخططات البيانية الشريطية لتوضيح التوزيع التفصيلي لتكاليف الإنشاء لكل عنصر من عناصر المشروع.</p><svg viewBox="0 0 ${w} ${h}" width="100%" style="max-width:${w}px;direction:ltr">${bars}</svg></div>`;
+}
+
+function radarChart(attrs){
+  const items=attrs.filter(a=>a.n);
+  if(!items.length)return '';
+  const cx=200,cy=200,r=150,n=items.length;
+  const angleStep=2*Math.PI/n;
+  let gridLines='',labels='',dataPath='',dataPath2='';
+  for(let ring=2;ring<=10;ring+=2){
+    const rr=r*(ring/10);let pts=[];
+    for(let i=0;i<n;i++){const a=-Math.PI/2+i*angleStep;pts.push(`${cx+rr*Math.cos(a)},${cy+rr*Math.sin(a)}`);}
+    gridLines+=`<polygon points="${pts.join(' ')}" fill="none" stroke="#ddd" stroke-width="1"/>`;
+  }
+  for(let i=0;i<n;i++){
+    const a=-Math.PI/2+i*angleStep;
+    const lx=cx+(r+25)*Math.cos(a),ly=cy+(r+25)*Math.sin(a);
+    gridLines+=`<line x1="${cx}" y1="${cy}" x2="${cx+r*Math.cos(a)}" y2="${cy+r*Math.sin(a)}" stroke="#ddd" stroke-width="1"/>`;
+    labels+=`<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="11" font-family="Tajawal" fill="#333">${E(items[i].n)}</text>`;
+  }
+  let pts1=[],pts2=[];
+  for(let i=0;i<n;i++){
+    const a=-Math.PI/2+i*angleStep;
+    const v=parseInt(items[i].l)||5;
+    const rr=r*(v/10);
+    pts1.push(`${cx+rr*Math.cos(a)},${cy+rr*Math.sin(a)}`);
+    const v2=Math.max(v-2,1);const rr2=r*(v2/10);
+    pts2.push(`${cx+rr2*Math.cos(a)},${cy+rr2*Math.sin(a)}`);
+  }
+  dataPath=`<polygon points="${pts1.join(' ')}" fill="rgba(11,79,108,0.25)" stroke="#0B4F6C" stroke-width="2.5"/>`;
+  dataPath2=`<polygon points="${pts2.join(' ')}" fill="rgba(200,164,21,0.15)" stroke="#C8A415" stroke-width="2" stroke-dasharray="6,3"/>`;
+  const scaleLabels=[2,4,6,8,10].map(v=>`<text x="${cx+4}" y="${cy-r*(v/10)+3}" font-size="9" fill="#999" font-family="Tajawal">${v}</text>`).join('');
+  return `<div style="text-align:center;margin:20px 0"><h3 style="margin-bottom:6px">منحنى الجودة — سمات الأداء</h3><p style="font-size:13px;margin-bottom:12px">يوضح الشكل التالي منحنى جودة يعرض مستويات الأداء المستهدفة لكل سمة تم تحديدها بالتنسيق مع ممثلي الجهة الحكومية.</p><div style="display:flex;justify-content:center;gap:20px;align-items:center;flex-wrap:wrap"><svg viewBox="0 0 400 440" width="380" style="max-width:100%">${gridLines}${dataPath2}${dataPath}${labels}${scaleLabels}</svg><div style="display:flex;flex-direction:column;gap:8px;font-size:12px"><div style="display:flex;align-items:center;gap:6px"><div style="width:30px;height:3px;background:#0B4F6C"></div><span>منحنى الجودة</span></div><div style="display:flex;align-items:center;gap:6px"><div style="width:30px;height:3px;background:#C8A415;border-top:2px dashed #C8A415"></div><span>الاستجابة المتوازنة</span></div></div></div></div>`;
+}
+
+function fastDiagram(funcs){
+  const basic=funcs.filter(f=>f.cl==='أساسية');
+  const secondary=funcs.filter(f=>f.cl==='ثانوية');
+  const required=funcs.filter(f=>f.cl==='مطلوبة');
+  if(!basic.length&&!secondary.length)return '';
+  const bw=140,bh=40,gap=16,colW=160;
+  const rows=Math.max(basic.length,secondary.length,required.length,1);
+  const h=rows*(bh+gap)+140;
+  const w=700;
+  let svg=`<rect x="0" y="0" width="${w}" height="80" fill="#f0f4f8" rx="8"/>`;
+  // Header row
+  const headers=[{t:'أهداف المشروع\\nProject Objectives',x:80},{t:'وظائف المرة الواحدة\\nOne-Time Functions',x:240},{t:'الوظائف المستمرة\\nAll-The-Time Functions',x:440}];
+  svg+=`<text x="80" y="30" text-anchor="middle" font-size="10" font-family="Tajawal" fill="#333" font-weight="700">أهداف المشروع</text><text x="80" y="46" text-anchor="middle" font-size="8" fill="#666">Project Objectives</text>`;
+  svg+=`<text x="280" y="30" text-anchor="middle" font-size="10" font-family="Tajawal" fill="#333" font-weight="700">وظائف المرة الواحدة</text><text x="280" y="46" text-anchor="middle" font-size="8" fill="#666">One-Time Functions</text>`;
+  svg+=`<text x="480" y="30" text-anchor="middle" font-size="10" font-family="Tajawal" fill="#333" font-weight="700">الوظائف المستمرة</text><text x="480" y="46" text-anchor="middle" font-size="8" fill="#666">All-The-Time Functions</text>`;
+  // HOW/WHY arrows
+  svg+=`<rect x="10" y="55" width="60" height="24" rx="4" fill="#C8A415"/><text x="40" y="71" text-anchor="middle" font-size="10" fill="#fff" font-weight="700" font-family="Tajawal">كيف؟ HOW</text>`;
+  svg+=`<rect x="${w-70}" y="55" width="60" height="24" rx="4" fill="#C8A415"/><text x="${w-40}" y="71" text-anchor="middle" font-size="10" fill="#fff" font-weight="700" font-family="Tajawal">لماذا؟ WHY</text>`;
+  // Function boxes
+  const drawBox=(fn,x,y,color)=>{
+    svg+=`<rect x="${x}" y="${y}" width="${bw}" height="${bh}" rx="6" fill="${color}"/>`;
+    const txt=fn.fn||fn.el||'';
+    svg+=`<text x="${x+bw/2}" y="${y+bh/2+4}" text-anchor="middle" font-size="10" fill="#fff" font-weight="600" font-family="Tajawal">${E(txt.substring(0,18))}</text>`;
+  };
+  basic.forEach((f,i)=>drawBox(f,20,100+i*(bh+gap),'#0B4F6C'));
+  secondary.forEach((f,i)=>drawBox(f,200,100+i*(bh+gap),'#1A7FA8'));
+  required.forEach((f,i)=>drawBox(f,380,100+i*(bh+gap),'#2196F3'));
+  // Bottom classification
+  const by=h-35;
+  svg+=`<rect x="0" y="${by}" width="${w}" height="35" fill="#f0f4f8" rx="8"/>`;
+  const cls=[{t:'وظيفة عليا',c:'#073B51',x:60},{t:'وظيفة أساسية',c:'#0B4F6C',x:180},{t:'وظيفة ثانوية',c:'#1A7FA8',x:320},{t:'وظيفة دنيا',c:'#2196F3',x:460}];
+  cls.forEach(c=>{
+    svg+=`<rect x="${c.x}" y="${by+6}" width="100" height="22" rx="4" fill="${c.c}"/>`;
+    svg+=`<text x="${c.x+50}" y="${by+21}" text-anchor="middle" font-size="10" fill="#fff" font-weight="600" font-family="Tajawal">${c.t}</text>`;
+  });
+  return `<div style="text-align:center;margin:20px 0"><h3 style="margin-bottom:6px">مخطط FAST — تحليل تقنية نظام الوظائف</h3><p style="font-size:13px;margin-bottom:12px">يوضح مخطط FAST العلاقات المنطقية بين وظائف المشروع حسب تسلسلها الهرمي من كيف؟ إلى لماذا؟</p><svg viewBox="0 0 ${w} ${h}" width="100%" style="max-width:${w}px;direction:ltr">${svg}</svg></div>`;
+}
+
+function evalTable(){
+  return `<div style="margin:16px 0;overflow-x:auto">
+<table style="min-width:500px">
+<tr><th rowspan="2" style="width:60px;background:#0B4F6C">م</th><th colspan="2" style="background:#0B4F6C">معايير التقييم</th><th rowspan="2" style="background:#0B4F6C">الأثر على القيم</th><th rowspan="2" style="width:70px;background:#0B4F6C">التقييم</th></tr>
+<tr><th style="background:#1A7FA8">التكلفة</th><th style="background:#1A7FA8">الأداء</th></tr>
+<tr style="background:#E8F5E9"><td style="font-weight:700">1</td><td style="text-align:center;color:#0D9668;font-size:18px">⬇️ تخفيض</td><td style="text-align:center;color:#0D9668;font-size:18px">⬆️ تحسين</td><td style="background:#C8E6C9;font-weight:700;color:#2E7D32;text-align:center">تحسين للقيمة</td><td style="font-weight:900;font-size:22px;text-align:center;color:#2E7D32">A</td></tr>
+<tr style="background:#E8F5E9"><td style="font-weight:700">2</td><td style="text-align:center;color:#0D9668;font-size:18px">⬇️ تخفيض</td><td style="text-align:center;font-size:18px">➡️ ثبات</td><td style="background:#C8E6C9;font-weight:700;color:#2E7D32;text-align:center">تحسين للقيمة</td><td style="font-weight:900;font-size:22px;text-align:center;color:#2E7D32">B</td></tr>
+<tr style="background:#E8F5E9"><td style="font-weight:700">3</td><td style="text-align:center;color:#0D9668;font-size:18px">⬇️ تخفيض</td><td style="text-align:center;color:#0D9668;font-size:18px">⬆️ تحسين</td><td style="background:#C8E6C9;font-weight:700;color:#2E7D32;text-align:center">تحسين للقيمة</td><td style="font-weight:900;font-size:22px;text-align:center;color:#2E7D32">B</td></tr>
+<tr style="background:#FFF8E1"><td style="font-weight:700">4</td><td style="text-align:center;color:#0D9668;font-size:18px">⬇️ تخفيض</td><td style="text-align:center;color:#FF9800;font-size:14px;font-weight:700">⬆️ تحسين<br>مطلوب</td><td style="background:#C8E6C9;font-weight:700;color:#2E7D32;text-align:center">تحسين للقيمة</td><td style="font-weight:900;font-size:22px;text-align:center;color:#F57F17">C</td></tr>
+<tr style="background:#FFEBEE"><td style="font-weight:700">5</td><td style="text-align:center;font-size:18px">➡️ ثبات</td><td style="text-align:center;color:#DC2626;font-size:18px">⬇️ انخفاض</td><td style="background:#FFCDD2;font-weight:700;color:#C62828;text-align:center">خفض للقيمة</td><td style="font-weight:900;font-size:22px;text-align:center;color:#C62828">D</td></tr>
+<tr style="background:#FFEBEE"><td style="font-weight:700">6</td><td style="text-align:center;color:#DC2626;font-size:18px">⬆️ زيادة</td><td style="text-align:center;font-size:18px">➡️ ثبات</td><td style="background:#FFCDD2;font-weight:700;color:#C62828;text-align:center">خفض للقيمة</td><td style="font-weight:900;font-size:22px;text-align:center;color:#C62828">D</td></tr>
+</table></div>`;
+}
+
+function veProposalCard(p,pName){
+  const im=parseFloat((p.ci||'0').replace(/,/g,''));
+  const f=parseFloat(p.af||'1');
+  return `
+<div style="border:2px solid #0B4F6C;border-radius:0;margin:20px 0;page-break-inside:avoid;overflow:hidden">
+<div style="background:#0B4F6C;color:#fff;padding:8px 16px;font-weight:700;font-size:15px;text-align:center">Value Engineering Proposal</div>
+<table style="margin:0;border-radius:0"><tr><td style="font-weight:700;background:#f0f4f8">المشروع / Project:</td><td>${E(pName)}</td><td style="font-weight:700;background:#f0f4f8">رقم الفكرة / Idea No:</td><td>${E(p.nu)}</td></tr>
+<tr><td style="font-weight:700;background:#f0f4f8">وصف الفكرة / Idea Description:</td><td colspan="3">${E(p.ti)}</td></tr></table>
+<div style="background:#0B4F6C;color:#fff;padding:5px 16px;font-weight:600;font-size:13px">التصميم الأصلي / Original Design</div>
+<div style="padding:12px 16px;min-height:60px;border-bottom:1px solid #ddd">${E(p.cur)||'-'}</div>
+<div style="background:#0B4F6C;color:#fff;padding:5px 16px;font-weight:600;font-size:13px">التصميم المقترح / Proposed Design</div>
+<div style="padding:12px 16px;min-height:60px;border-bottom:1px solid #ddd">${E(p.nw)||'-'}</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #ddd">
+<div><div style="background:#0B4F6C;color:#fff;padding:5px 10px;font-weight:600;font-size:12px">المزايا والفرص / Advantages</div><div style="padding:10px;white-space:pre-line;font-size:13px">${E(p.pro)||'-'}</div></div>
+<div style="border-right:1px solid #ddd"><div style="background:#0B4F6C;color:#fff;padding:5px 10px;font-weight:600;font-size:12px">معوقات وتحديات / Limitations</div><div style="padding:10px;white-space:pre-line;font-size:13px">${E(p.con)||'لا توجد'}</div></div></div>
+<div style="background:#E3F2FD;padding:5px 16px;font-weight:700;font-size:13px;color:#0B4F6C">مقارنة التكاليف / Cost Comparison</div>
+<table style="margin:0"><tr style="background:#0B4F6C;color:#fff"><td colspan="4" style="font-weight:600">التصميم الأصلي / Original Design:</td></tr>
+<tr><th>Item Description</th><th>Quantity</th><th>Unit Cost</th><th>Total</th></tr>
+<tr><td>التكلفة الحالية</td><td>1</td><td>${FN(im)} ريال</td><td style="font-weight:700">${FN(im)} ريال</td></tr>
+<tr style="background:#0B4F6C;color:#fff"><td colspan="4" style="font-weight:600">التصميم المقترح / Proposed Design:</td></tr>
+<tr><td>التكلفة بعد التعديل</td><td>1</td><td>${FN((im*(1-f*0.1)).toFixed(0))} ريال</td><td style="font-weight:700">${FN((im*(1-f*0.1)).toFixed(0))} ريال</td></tr>
+<tr style="background:#C8E6C9;font-weight:700"><td colspan="3">تفادي التكاليف المحتمل</td><td style="color:#2E7D32">${FN((im*f).toFixed(0))} ريال</td></tr></table>
+${p.pi?`<div style="padding:10px 16px;border-top:1px solid #ddd"><strong style="color:#0B4F6C">أثر الأداء:</strong> ${E(p.pi)}</div>`:''}
+${p.rk?`<div style="padding:10px 16px;border-top:1px solid #ddd"><strong style="color:#0B4F6C">المخاطر:</strong> ${E(p.rk)}</div>`:''}
+</div>`;
+}
+
+// ====== FULL REPORT GENERATION ======
+function GR(){
+  const d=S.p;
+  const bc=parseFloat((d.bCost||'0').replace(/,/g,''));
+  const vat=bc*1.15;
+  let tA=0,tAd=0;
+  S.props.forEach(p=>{const im=parseFloat((p.ci||'0').replace(/,/g,''));const f=parseFloat(p.af||'1');if(p.it==='تفادي تكلفة')tA+=im*f;else tAd+=im*f});
+  const aP=bc>0?((tA/bc)*100).toFixed(2):'0';
+  const dI=S.ideas.filter(i=>['A','B','C'].includes(i.ev));
+  const xI=S.ideas.filter(i=>i.ev==='D');
+  const cI=S.ideas.filter(i=>i.ev==='C');
+  const pn=d.pName||'المشروع';
+  const gov=d.gov||'الجهة الحكومية';
+  const cons=d.cons||'استشاري الهندسة القيمية';
+  const dCons=d.dCons||'استشاري التصميم';
+  const intro=d.pIntro||`يأتي مشروع "${pn}" ضمن المشاريع الاستراتيجية لـ${gov}، ويهدف إلى تلبية الاحتياجات التشغيلية والتطويرية للجهة وفق أعلى معايير الجودة والكفاءة. وقد تم إعداد هذا المشروع بما يتوافق مع الأنظمة واللوائح المعمول بها في المملكة العربية السعودية، ومتطلبات هيئة كفاءة الإنفاق والمشروعات الحكومية.`;
+  const scope=d.pScope||`يقع المشروع ضمن النطاق الجغرافي التابع لـ${gov}، ويشمل نطاق العمل كافة الأعمال الإنشائية والتشطيبات والأنظمة الكهروميكانيكية اللازمة لتحقيق أهداف المشروع وتشغيله بالكامل وفق المواصفات الفنية المعتمدة.`;
+  const docsDefault=S.docs.filter(dd=>dd.n).length?S.docs:
+    [{n:'وثائق التصميم المعماري والإنشائي'},{n:'جداول الكميات والمواصفات الفنية'},{n:'تقرير دراسة التربة والأساسات'},{n:'المخططات الكهروميكانيكية'},{n:'تقدير التكاليف المعتمد'}];
+
+  return `
+<div style="text-align:center;margin-bottom:32px;padding:26px;background:linear-gradient(135deg,#0B4F6C,#1A7FA8);color:#fff;border-radius:14px">
+<div style="font-size:13px;opacity:.75;margin-bottom:6px">تقرير دراسة الهندسة القيمية</div>
+<h1 style="color:#fff;border:none;margin:0;font-size:22px;padding:0">${E(pn)}</h1>
+<div style="margin-top:12px;font-size:13px">${E(gov)} | ${E(cons)}</div>
+<div style="margin-top:8px;font-size:12px;opacity:.6">${FD(d.sDate)}</div>
+</div>
+
+<div style="background:#f0f4f8;border-radius:10px;padding:18px;margin-bottom:22px">
+<h3 style="text-align:center;margin-bottom:14px;font-size:16px">إحصائيات الدراسة</h3>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px">
+<div><strong>التكلفة الأساسية:</strong> ${FN(bc)} ريال</div><div><strong>مع الضريبة:</strong> ${FN(vat.toFixed(0))} ريال</div>
+<div><strong>تفادي التكاليف المحتمل:</strong> ${FN(tA.toFixed(0))} ريال</div><div><strong>نسبة التفادي:</strong> ${aP}%</div>
+<div><strong>إجمالي الأفكار:</strong> ${S.ideas.length} فكرة</div><div><strong>المطورة:</strong> ${dI.length} فكرة</div>
+<div><strong>اعتبارات تصميمية:</strong> ${cI.length}</div><div><strong>المستبعدة:</strong> ${xI.length}</div>
+<div><strong>أعضاء الفريق:</strong> ${S.team.length} عضو</div><div><strong>المقترحات:</strong> ${S.props.length} مقترح</div>
+</div></div>
+
+<h2>1. الملخص التنفيذي</h2>
+<h3>1-1 مقدمة</h3>
+<p>يلخص هذا التقرير أنشطة دراسة الهندسة القيمية التي تم تنفيذها لصالح <strong>${E(gov)}</strong>، بقيادة <strong>${E(cons)}</strong>. وتغطي الدراسة مشروع <strong>${E(pn)}</strong>، فيما امتدت ورشة العمل على مدى <strong>${d.wsD||'3'}</strong> أيام خلال الفترة من <strong>${FD(d.wsS)}</strong> إلى <strong>${FD(d.wsE)}</strong>.</p>
+<p>وقد أعدّ تصميم المشروع <strong>${E(dCons)}</strong> في حين أُجريت دراسة الهندسة القيمية خلال مرحلة <strong>${d.dPhase||'التصميم التفصيلي'}</strong>.</p>
+<p>وتهدف دراسة الهندسة القيمية إلى:</p>
+<ul><li>تطبيق مبادئ ومراحل خطة عمل الهندسة القيمية وفق منهجية SAVE International.</li><li>إجراء مراجعة وتحليل شامل للعناصر الرئيسية باستخدام فريق متعدد التخصصات من خلال تحليل الوظائف.</li><li>البحث عن أفكار متنوعة لتحسين القيمة وتحقيق أهداف المشروع.</li><li>تطبيق تقنيات تقييم مهنية على الأفكار المطروحة وفقًا لمنهجية الهندسة القيمية.</li><li>تحديد الفرص الممكنة لإضافة قيمة وتحقيق تفادي في التكاليف.</li><li>تطوير الأفكار الواعدة بما يُسهم في تحسين ممارسات التصميم وتوجيه المراحل التالية.</li></ul>
+
+<h3>1-2 ملخص دراسة الهندسة القيمية</h3>
+<p>أُجريت دراسة الهندسة القيمية لتعظيم قيمة المشروع بتحسين الأداء وترشيد استخدام الموارد. وقد أسفرت الدراسة عن تحقيق <strong>تفادي تكاليف محتمل</strong> بقيمة <strong>${FN(tA.toFixed(0))} ريال سعودي</strong>، وهو ما يمثل نسبة <strong>${aP}%</strong> من التكلفة الأساسية للمشروع.</p>
+
+<h3>1-3 ملخص الأثر المالي للمقترحات</h3>
+<p>يُبيّن الجدول أدناه الأثر المالي المحتمل للمقترحات المطوّرة خلال دراسة الهندسة القيمية، حيث تم تصنيف كل مقترح إما كتفادي في التكلفة أو كتكلفة إضافية مرتبطة بتحسين القيمة. ولضمان سيناريو واقعي، تم تطبيق معاملات تعديل تعكس حالات التداخل الفني بين المقترحات.</p>
+<table><tr><th>م</th><th>رقم المقترح</th><th>التصنيف</th><th>الأثر المالي</th><th>المعامل</th><th>المبرر</th><th>المعدّل</th></tr>
+${S.props.map((p,i)=>{const im=parseFloat((p.ci||'0').replace(/,/g,''));const f=parseFloat(p.af||'1');return `<tr><td>${i+1}</td><td>${E(p.nu)}</td><td>${E(p.it)}</td><td>${FN(im)}</td><td>${f}</td><td>${E(p.ar)||'-'}</td><td>${FN((im*f).toFixed(0))}</td></tr>`}).join('')}
+<tr style="background:#0B4F6C;color:#fff;font-weight:700"><td colspan="6">مجموع تفادي التكاليف المحتمل</td><td>${FN(tA.toFixed(0))} ريال</td></tr>
+<tr style="font-weight:700"><td colspan="6">مجموع التكاليف الإضافية</td><td>${FN(tAd.toFixed(0))} ريال</td></tr>
+<tr style="font-weight:700"><td colspan="6">التكلفة الأساسية (بدون ضريبة)</td><td>${FN(bc)} ريال</td></tr>
+<tr style="background:#C8A415;font-weight:700"><td colspan="6">نسبة تفادي التكاليف</td><td>${aP}%</td></tr></table>
+
+<h3>1-5 فريق الهندسة القيمية</h3>
+<p>يُعد وجود فريق هندسة قيمية مكوَّن من كوادر ذات خبرة ومعرفة عالية من أهم عوامل نجاح ورشة العمل.</p>
+<table><tr><th>#</th><th>الاسم</th><th>الجهة</th><th>الوظيفة</th><th>التخصص</th></tr>
+${S.team.map((m,i)=>`<tr><td>${i+1}</td><td>${E(m.n)||'-'}</td><td>${E(m.e)||'-'}</td><td>${E(m.r)||'-'}</td><td>${E(m.s)||'-'}</td></tr>`).join('')}</table>
+
+<h2>2. نظرة عامة عن المشروع</h2>
+<h3>2-1 مقدمة عن المشروع</h3>
+<p>${E(intro)}</p>
+<h3>2-2 نطاق عمل المشروع وموقعه</h3>
+<p>${E(scope)}</p>
+<h3>2-3 الوثائق والمستندات المرجعية</h3>
+<p>استلم فريق دراسة الهندسة القيمية مجموعة من الوثائق والمستندات الفنية من فريق التصميم، والتي تم الاعتماد عليها لفهم المشروع وتحليل عناصره:</p>
+<table><tr><th>#</th><th>المستند</th></tr>${docsDefault.map((dd,i)=>`<tr><td>${i+1}</td><td>${E(dd.n)||'-'}</td></tr>`).join('')}</table>
+
+<h2>3. خطة عمل الهندسة القيمية</h2>
+<p>تُعتبر مراحل خطة العمل العمود الفقري لتطبيق منهجية الهندسة القيمية، حيث تمثل تسلسلًا منطقيًا من الخطوات يضمن تحقيق أقصى استفادة. يُعد الالتزام بهذه المراحل أمرًا ضروريًا لضمان التطبيق الصحيح للمنهجية.</p>
+<h3>3-1 مرحلة الإعداد</h3>
+<p>مرحلة الإعداد تُعد حجر الأساس لنجاح الدراسة، حيث تُحدد الإطار العام وتُهيئ الظروف لتحقيق أقصى استفادة ممكنة. وتشمل: تحديد أهداف وغايات الدراسة، تحديد أعضاء الفريق من ممثلي ${E(gov)} والمعنيين بالمشروع وفريق التصميم وخبراء مستقلين، وضع الأجندة، والتنسيقات اللوجستية اللازمة.</p>
+<p>خلال هذه المرحلة تم جمع المعلومات ومراجعتها بدقة لضمان فهم شامل للمشروع. كما عُقدت اجتماعات تمهيدية قبل ورشة العمل لتخطيط الجهود وتنظيمها بمشاركة ممثلي الجهة.</p>
+<h3>3-2 ورشة عمل الهندسة القيمية</h3>
+<p>تغطي ورشة العمل المراحل من عرض وتحليل المعلومات إلى عرض المقترحات، وتشمل: مرحلة عرض وتحليل المعلومات، مرحلة تحليل الوظائف، مرحلة طرح الأفكار، مرحلة التقييم، مرحلة التطوير، ومرحلة العرض.</p>
+<p>وتهدف الورشة إلى تحليل وظائف المشروع وتوليد مقترحات تعزز القيمة من خلال الاستخدام الأمثل للموارد المتاحة، بما يضمن تحقيق الوظائف المطلوبة وفق مستويات الأداء المستهدفة.</p>
+
+<h2>4. تحليل المعلومات وإعداد النماذج</h2>
+<p>تُستخدم في دراسة الهندسة القيمية العديد من الأدوات والنماذج لتحليل معلومات المشروع وتوثيق التفاعل بين أعضاء الفريق. استنادًا إلى البيانات الفنية التي قدّمها فريق التصميم، قام فريق الهندسة القيمية بإعداد النماذج التالية:</p>
+
+<h3>4-1 نماذج تحليل التكاليف</h3>
+<p>يوضح الجدول التالي توزيع تكاليف المشروع على البنود الرئيسية، مما يتيح رؤية شاملة لتركيبة التكاليف ويساعد في تحديد البنود ذات التأثير الأكبر على الميزانية:</p>
+<table><tr><th>البند</th><th>التكلفة (ريال)</th><th>النسبة</th></tr>
+${S.costs.filter(c=>c.n).map(c=>{const cv=parseFloat((c.c||'0').replace(/,/g,''));return `<tr><td>${E(c.n)}</td><td>${FN(cv)}</td><td>${bc>0?((cv/bc)*100).toFixed(1):'0'}%</td></tr>`}).join('')}
+<tr style="background:#0B4F6C;color:#fff;font-weight:700"><td>الإجمالي</td><td>${FN(bc)}</td><td>100%</td></tr></table>
+
+${barChart(S.costs.filter(c=>c.n),bc)}
+${pieChart(S.costs.filter(c=>c.n),bc)}
+
+<h3>4-2 سمات الأداء ونموذج الجودة</h3>
+<p>تم تحديد سمات الأداء بالتعاون مع ممثلي ${E(gov)}، بهدف توضيح الخصائص التي تعكس تطلعات الجهة وتدعم تحقيق أهداف المشروع:</p>
+<table><tr><th>سمة الأداء</th><th>المستوى المستهدف (من 10)</th></tr>
+${S.attrs.filter(a=>a.n).map(a=>`<tr><td>${E(a.n)}</td><td style="text-align:center;font-weight:700">${a.l}</td></tr>`).join('')}</table>
+
+${radarChart(S.attrs)}
+
+<h2>5. مرحلة تحليل الوظائف</h2>
+<p>تهدف مرحلة تحليل الوظائف إلى تحديد الغرض الرئيسي من المشروع ومكوناته، وتُتيح فرصة لفتح آفاق جديدة في التفكير وتطوير مقترحات مبتكرة. وتتبع ثلاث خطوات: تعريف الوظائف وتصنيفها، تخصيص الموارد للوظائف، وتحديد الوظائف ذات الأولوية.</p>
+<h3>قائمة التحديد العشوائي للوظائف</h3>
+<table><tr><th>م</th><th>عنصر المشروع</th><th>الوظيفة (فعل + اسم)</th><th>التصنيف</th></tr>
+${S.funcs.filter(f=>f.el).map((f,i)=>`<tr><td>${i+1}</td><td>${E(f.el)}</td><td>${E(f.fn)}</td><td>${E(f.cl)}</td></tr>`).join('')}</table>
+
+${fastDiagram(S.funcs.filter(f=>f.el))}
+${S.pFn.filter(p=>p).length?`<h3>الوظائف ذات الأولوية</h3><p>بناءً على تحليل الوظائف ومناقشات الفريق، تم تحديد الوظائف التالية كأولويات لمرحلة طرح الأفكار:</p><ul>${S.pFn.filter(p=>p).map(p=>`<li><strong>${E(p)}</strong></li>`).join('')}</ul>`:''}
+
+<h2>6. مرحلة طرح الأفكار</h2>
+<p>تأتي هذه المرحلة بعد الانتهاء من تحليل الوظائف وتحديد الأولويات. وقد تم استخدام تقنية العصف الذهني لتحفيز التفكير الحر، عبر توفير بيئة تفاعلية تتيح للفريق طرح الأفكار دون قيود. وقد نتج عن هذه المرحلة <strong>${S.ideas.length}</strong> فكرة:</p>
+<table><tr><th>م</th><th>الرقم</th><th>وصف الفكرة</th></tr>
+${S.ideas.map((id,i)=>`<tr><td>${i+1}</td><td>${E(id.nu)}</td><td>${E(id.de)}</td></tr>`).join('')}</table>
+
+<h2>7. مرحلة التقييم</h2>
+<h3>7-1 تقنية التقييم</h3>
+<p>تم تحديد معايير التقييم بما يتماشى مع طبيعة المشروع وأهداف الدراسة، وتمت مناقشتها مع ${E(gov)} لضمان توافقها مع متطلبات المشروع. استخدم الفريق أسلوب التقييم بالرموز الحرفية (Letter Grade Evaluation):</p>
+${evalTable()}
+<h3>7-2 نتائج مرحلة التقييم</h3>
+<table><tr><th>م</th><th>الرقم</th><th>وصف الفكرة</th><th>التقييم</th></tr>
+${S.ideas.map((id,i)=>`<tr><td>${i+1}</td><td>${E(id.nu)}</td><td>${E(id.de)}</td><td style="font-weight:700;color:${id.ev==='D'?'#DC2626':'#0D9668'};font-size:16px">${id.ev||'-'}</td></tr>`).join('')}</table>
+<p>وبذلك تم اعتماد <strong>${dI.length}</strong> فكرة للتطوير (A, B, C)، واستبعاد <strong>${xI.length}</strong> فكرة حصلت على تقييم D.</p>
+
+<h2>8. مرحلة التطوير</h2>
+<p>يعمل فريق الهندسة القيمية في هذه المرحلة على تحويل الأفكار المختارة إلى مقترحات أكثر نضجًا وتفصيلًا. وقد نتج عن مرحلة طرح الأفكار ما مجموعه <strong>${S.ideas.length}</strong> فكرة، وتم اختيار <strong>${dI.length}</strong> فكرة لتطويرها. يتضمن كل مقترح: ملخصًا للتصميم الأساسي، ووصفًا للبديل المقترح، وقائمة بالإيجابيات والسلبيات، ومقارنة للتكاليف، وتحليلًا لأثر الأداء والمخاطر.</p>
+
+${S.props.map(p=>veProposalCard(p,pn)).join('')}
+`}
+
+// Downloads
+function DW(){
+  NT('جارِ إعداد ملف Word...');
+  const c=document.getElementById('rpt').innerHTML;
+  const h=`<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><style>@page{size:A4;margin:2cm}body{font-family:'Tajawal','Arial',sans-serif;direction:rtl;font-size:14px;line-height:2;color:#1B1F2A}h1{color:#0B4F6C;font-size:22px;text-align:center;border-bottom:3px solid #C8A415;padding-bottom:10px}h2{color:#0B4F6C;font-size:17px;border-bottom:2px solid #DCE2EC;padding-bottom:5px;margin-top:22px}h3{color:#1A7FA8;font-size:14px;margin-top:14px}table{width:100%;border-collapse:collapse;margin:10px 0}th{background:#0B4F6C;color:#fff;padding:7px}td{padding:5px 7px;border:1px solid #DCE2EC}tr:nth-child(even){background:#F4F6F9}strong{color:#0B4F6C}ul{padding-right:20px}li{margin-bottom:4px}</style></head><body>${c}</body></html>`;
+  const b=new Blob(['\ufeff',h],{type:'application/msword'});const u=URL.createObjectURL(b);
+  const a=document.createElement('a');a.href=u;a.download='تقرير_الهندسة_القيمية.doc';a.click();URL.revokeObjectURL(u);
+}
+function DP(){
+  NT('جارِ فتح الطباعة...');
+  const c=document.getElementById('rpt').innerHTML;const w=window.open('','_blank');
+  w.document.write(`<html dir="rtl"><head><meta charset="utf-8"><link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet"><style>@page{size:A4;margin:2cm}body{font-family:'Tajawal',sans-serif;direction:rtl;font-size:12px;line-height:1.8;color:#1B1F2A;padding:16px}h1{color:#0B4F6C;font-size:20px;text-align:center;border-bottom:3px solid #C8A415;padding-bottom:10px}h2{color:#0B4F6C;font-size:16px;border-bottom:2px solid #DCE2EC;padding-bottom:5px;margin-top:18px;page-break-after:avoid}h3{color:#1A7FA8;font-size:13px;margin-top:12px;page-break-after:avoid}table{width:100%;border-collapse:collapse;margin:8px 0;page-break-inside:avoid}th{background:#0B4F6C;color:#fff;padding:5px 7px;font-size:11px}td{padding:4px 7px;border:1px solid #ddd;font-size:11px}tr:nth-child(even){background:#f5f5f5}ul{padding-right:20px}li{margin-bottom:3px}</style></head><body>${c}<script>setTimeout(()=>window.print(),600)<\/script></body></html>`);
+  w.document.close();
+}
+
+function aEvt(){
+  const el=document.getElementById('bCost');
+  if(el)el.addEventListener('input',()=>{const n=parseFloat(el.value.replace(/[^\d.]/g,''));if(!isNaN(n)){const v=document.getElementById('bVAT');if(v)v.value=(n*1.15).toLocaleString('en');S.p.bVAT=(n*1.15).toLocaleString('en')}});
+}
+
+R();
+</script>
+</body>
+</html>
