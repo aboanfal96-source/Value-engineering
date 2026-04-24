@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منصة توليد تقارير الهندسة القيمية</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #0B4F6C;
+  --primary-light: #1A7FA8;
+  --primary-dark: #073B51;
+  --accent: #D4AF37;
+  --accent-light: #E8C94A;
+  --bg: #F7F8FA;
+  --card: #FFFFFF;
+  --text: #1A1A2E;
+  --text-secondary: #5A6478;
+  --border: #E2E8F0;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --shadow: 0 4px 24px rgba(11,79,108,0.08);
+  --shadow-lg: 0 12px 48px rgba(11,79,108,0.12);
+  --radius: 12px;
+  --radius-lg: 20px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--primary-light); border-radius: 3px; }
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--accent);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--primary-dark);
+  font-weight: 900;
+  box-shadow: 0 4px 12px rgba(212,175,55,0.3);
+}
+
+.header h1 {
+  color: white;
+  font-size: 22px;
+  font-weight: 800;
+  font-family: 'Cairo', sans-serif;
+  letter-spacing: -0.5px;
+}
+
+.header-sub {
+  color: rgba(255,255,255,0.7);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.header-badge {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Progress Steps */
+.progress-bar {
+  background: rgba(255,255,255,0.06);
+  padding: 12px 32px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.progress-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  transition: all 0.3s;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.step-item.active {
+  background: rgba(255,255,255,0.15);
+  color: white;
+  font-weight: 600;
+}
+
+.step-item.completed {
+  color: var(--accent-light);
+}
+
+.step-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  border: 2px solid rgba(255,255,255,0.2);
+  flex-shrink: 0;
+}
+
+.step-item.active .step-num {
+  background: var(--accent);
+  color: var(--primary-dark);
+  border-color: var(--accent);
+}
+
+.step-item.completed .step-num {
+  background: var(--success);
+  border-color: var(--success);
+  color: white;
+}
+
+.step-connector {
+  width: 24px;
+  height: 2px;
+  background: rgba(255,255,255,0.15);
+  flex-shrink: 0;
+}
+
+/* Main Content */
+.main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+
+/* Section Card */
+.section-card {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 32px;
+  margin-bottom: 24px;
+  border: 1px solid var(--border);
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity:0; transform: translateY(12px); }
+  to { opacity:1; transform: translateY(0); }
+}
+
+.section-title {
+  font-family: 'Cairo', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title .icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+}
+
+.section-desc {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 24px;
+  padding-right: 46px;
+}
+
+/* Form Elements */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.form-label .required {
+  color: var(--danger);
+  margin-right: 2px;
+}
+
+.form-hint {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 400;
+  margin-right: 4px;
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  font-family: 'Tajawal', sans-serif;
+  font-size: 15px;
+  color: var(--text);
+  background: var(--bg);
+  transition: all 0.2s;
+  direction: rtl;
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(26,127,168,0.1);
+}
+
+.form-textarea {
+  min-height: 100px;
+  resize: vertical;
+  line-height: 1.8;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-row-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+/* Dynamic Items */
+.dynamic-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dynamic-item {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  animation: fadeIn 0.3s ease;
+}
+
+.dynamic-item .item-num {
+  width: 28px;
+  height: 28px;
+  background: var(--primary);
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.dynamic-item .item-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dynamic-item .item-content input,
+.dynamic-item .item-content textarea,
+.dynamic-item .item-content select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 14px;
+  background: white;
+  direction: rtl;
+}
+
+.dynamic-item .item-content input:focus,
+.dynamic-item .item-content textarea:focus {
+  outline: none;
+  border-color: var(--primary-light);
+}
+
+.btn-remove {
+  background: none;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+  padding: 4px;
+  font-size: 18px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.btn-remove:hover { opacity: 1; }
+
+.btn-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: transparent;
+  border: 2px dashed var(--primary-light);
+  border-radius: var(--radius);
+  color: var(--primary);
+  font-family: 'Tajawal', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 8px;
+}
+
+.btn-add:hover {
+  background: rgba(26,127,168,0.06);
+  border-color: var(--primary);
+}
+
+/* Buttons */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.btn {
+  padding: 12px 32px;
+  border-radius: var(--radius);
+  font-family: 'Tajawal', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  box-shadow: 0 4px 16px rgba(11,79,108,0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(11,79,108,0.4);
+}
+
+.btn-secondary {
+  background: var(--bg);
+  color: var(--text);
+  border: 2px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: white;
+  border-color: var(--primary-light);
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  color: var(--primary-dark);
+  box-shadow: 0 4px 16px rgba(212,175,55,0.3);
+  font-size: 16px;
+  padding: 14px 40px;
+}
+
+.btn-gold:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(212,175,55,0.4);
+}
+
+.btn-success {
+  background: var(--success);
+  color: white;
+}
+
+/* Table Styles */
+.eval-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 14px;
+}
+
+.eval-table th {
+  background: var(--primary);
+  color: white;
+  padding: 10px 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.eval-table th:first-child { border-radius: 0 8px 0 0; }
+.eval-table th:last-child { border-radius: 8px 0 0 0; }
+
+.eval-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+
+.eval-table tr:nth-child(even) { background: var(--bg); }
+
+.eval-table select, .eval-table input {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 13px;
+  text-align: center;
+  width: 100%;
+  direction: rtl;
+}
+
+/* Proposal Card */
+.proposal-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.proposal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--primary);
+}
+
+.proposal-num {
+  background: var(--primary);
+  color: white;
+  padding: 4px 16px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Preview Area */
+.preview-container {
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 48px;
+  max-width: 900px;
+  margin: 0 auto;
+  direction: rtl;
+  font-family: 'Tajawal', sans-serif;
+  line-height: 2;
+  min-height: 600px;
+}
+
+.preview-container h1 {
+  font-family: 'Cairo', sans-serif;
+  color: var(--primary);
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 3px solid var(--accent);
+}
+
+.preview-container h2 {
+  font-family: 'Cairo', sans-serif;
+  color: var(--primary);
+  font-size: 20px;
+  margin: 24px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--border);
+}
+
+.preview-container h3 {
+  color: var(--primary-light);
+  font-size: 17px;
+  margin: 16px 0 8px;
+}
+
+.preview-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 14px;
+}
+
+.preview-container table th {
+  background: var(--primary);
+  color: white;
+  padding: 10px;
+  font-weight: 600;
+}
+
+.preview-container table td {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+}
+
+.preview-container table tr:nth-child(even) { background: var(--bg); }
+
+/* Loading */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.loading-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 48px;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 24px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+}
+
+.footer strong {
+  color: var(--primary);
+}
+
+/* Download Buttons */
+.download-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 24px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header-inner { padding: 12px 16px; }
+  .header h1 { font-size: 16px; }
+  .header-badge { display: none; }
+  .progress-bar { overflow-x: auto; padding: 10px 16px; }
+  .step-item span:not(.step-num) { display: none; }
+  .main { padding: 16px 12px 60px; }
+  .section-card { padding: 20px 16px; }
+  .form-row, .form-row-3 { grid-template-columns: 1fr; }
+  .preview-container { padding: 24px 16px; }
+  .actions { flex-direction: column; gap: 12px; }
+  .btn { width: 100%; justify-content: center; }
+}
+
+/* Notification */
+.notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--success);
+  color: white;
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  z-index: 2000;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from { opacity:0; transform: translateX(-50%) translateY(-20px); }
+  to { opacity:1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Welcome Screen */
+.welcome-screen {
+  text-align: center;
+  padding: 60px 24px;
+}
+
+.welcome-icon {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  font-size: 48px;
+  color: white;
+  box-shadow: 0 12px 36px rgba(11,79,108,0.25);
+}
+
+.welcome-screen h2 {
+  font-family: 'Cairo', sans-serif;
+  font-size: 28px;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.welcome-screen p {
+  color: var(--text-secondary);
+  font-size: 16px;
+  max-width: 600px;
+  margin: 0 auto 32px;
+  line-height: 1.8;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  max-width: 700px;
+  margin: 0 auto 32px;
+}
+
+.feature-item {
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 20px;
+  text-align: center;
+}
+
+.feature-item .f-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.feature-item h4 {
+  color: var(--primary);
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.feature-item p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.info-box {
+  background: rgba(26,127,168,0.06);
+  border: 1px solid rgba(26,127,168,0.15);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: var(--primary);
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+  background: var(--bg);
+  padding: 4px;
+  border-radius: 10px;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--text-secondary);
+  border: none;
+  background: none;
+  font-family: 'Tajawal', sans-serif;
+}
+
+.tab.active {
+  background: white;
+  color: var(--primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script>
+// ==================== STATE ====================
+const state = {
+  currentStep: 0,
+  loading: false,
+  notification: '',
+  previewMode: 'preview',
+  projectData: {
+    projectName: '',
+    projectNumber: '',
+    governmentEntity: '',
+    consultant: '',
+    designConsultant: '',
+    baseCost: '',
+    baseCostWithVAT: '',
+    studyDate: '',
+    workshopStartDate: '',
+    workshopEndDate: '',
+    workshopDays: '3',
+    designPhase: '',
+    projectScope: '',
+    projectIntro: '',
+    siteDescription: '',
+  },
+  teamMembers: [{ name:'', entity:'', role:'', specialty:'', phone:'', email:'' }],
+  documents: [{ name:'' }],
+  performanceAttributes: [{ name:'', level: '8' }],
+  functions: [{ element:'', func:'', classification:'' }],
+  priorityFunctions: [''],
+  ideas: [{ number:'', description:'', evaluation:'' }],
+  proposals: [{
+    number: 'VE-01',
+    title: '',
+    currentDesign: '',
+    proposedDesign: '',
+    advantages: '',
+    disadvantages: '',
+    costImpact: '',
+    impactType: 'تفادي تكلفة',
+    adjustmentFactor: '1.0',
+    adjustmentReason: '',
+    performanceImpact: '',
+    riskAnalysis: '',
+  }],
+  costItems: [{ name:'', cost:'' }],
+};
+
+const steps = [
+  { label: 'البداية', icon: '🏠' },
+  { label: 'بيانات المشروع', icon: '📋' },
+  { label: 'الفريق والوثائق', icon: '👥' },
+  { label: 'التحليل والنماذج', icon: '📊' },
+  { label: 'الأفكار والتقييم', icon: '💡' },
+  { label: 'المقترحات', icon: '📝' },
+  { label: 'المعاينة والتصدير', icon: '📄' },
+];
+
+// ==================== RENDER ====================
+function render() {
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    ${renderHeader()}
+    <div class="main">
+      ${state.loading ? renderLoading() : ''}
+      ${state.notification ? `<div class="notification">${state.notification}</div>` : ''}
+      ${renderStep()}
+    </div>
+    <div class="footer">
+      بواسطة المهندس <strong>جاسر العتيبي</strong> | متوافق مع معايير هيئة كفاءة الإنفاق والمشروعات الحكومية (EXPRO)
+    </div>
+  `;
+  attachEvents();
+}
+
+function renderHeader() {
+  return `
+    <div class="header">
+      <div class="header-inner">
+        <div class="header-brand">
+          <div class="header-icon">هـ ق</div>
+          <div>
+            <h1>منصة توليد تقارير الهندسة القيمية</h1>
+            <div class="header-sub">متوافق مع نموذج هيئة كفاءة الإنفاق والمشروعات الحكومية (EXPRO)</div>
+          </div>
+        </div>
+        <div class="header-badge">EPM-KEV-TP-000002</div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-inner">
+          ${steps.map((s, i) => `
+            ${i > 0 ? '<div class="step-connector"></div>' : ''}
+            <div class="step-item ${i === state.currentStep ? 'active' : ''} ${i < state.currentStep ? 'completed' : ''}" onclick="goToStep(${i})">
+              <span class="step-num">${i < state.currentStep ? '✓' : i + 1}</span>
+              <span>${s.label}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderLoading() {
+  return `
+    <div class="loading-overlay">
+      <div class="loading-card">
+        <div class="spinner"></div>
+        <div style="font-weight:700;font-size:16px;color:var(--primary);margin-bottom:4px">جارِ إعداد التقرير...</div>
+        <div style="color:var(--text-secondary);font-size:13px">يتم توليد تقرير الهندسة القيمية وفق معايير EXPRO</div>
+      </div>
+    </div>
+  `;
+}
+
+function renderStep() {
+  switch(state.currentStep) {
+    case 0: return renderWelcome();
+    case 1: return renderProjectData();
+    case 2: return renderTeamDocs();
+    case 3: return renderAnalysis();
+    case 4: return renderIdeasEval();
+    case 5: return renderProposals();
+    case 6: return renderPreview();
+    default: return '';
+  }
+}
+
+// ==================== STEP 0: WELCOME ====================
+function renderWelcome() {
+  return `
+    <div class="section-card">
+      <div class="welcome-screen">
+        <div class="welcome-icon">📐</div>
+        <h2>منصة توليد تقارير الهندسة القيمية</h2>
+        <p>منصة متخصصة لإعداد تقارير دراسة الهندسة القيمية وفق النموذج المعتمد من هيئة كفاءة الإنفاق والمشروعات الحكومية (EXPRO)، بمستوى احترافي يتفوق على مخرجات الجامعات ومكاتب الاستشاريين.</p>
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="f-icon">📋</div>
+            <h4>نموذج EXPRO</h4>
+            <p>متوافق 100% مع النموذج الإرشادي المعتمد</p>
+          </div>
+          <div class="feature-item">
+            <div class="f-icon">⚡</div>
+            <h4>توليد تلقائي</h4>
+            <p>صياغة مهنية رصينة لجميع أقسام التقرير</p>
+          </div>
+          <div class="feature-item">
+            <div class="f-icon">📊</div>
+            <h4>جداول التقييم</h4>
+            <p>نماذج A, B, C, D جاهزة وتفاعلية</p>
+          </div>
+        </div>
+        <button class="btn btn-gold" onclick="goToStep(1)">
+          ابدأ إعداد التقرير ←
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+// ==================== STEP 1: PROJECT DATA ====================
+function renderProjectData() {
+  const d = state.projectData;
+  return `
+    <div class="section-card">
+      <div class="section-title">
+        <span class="icon">📋</span>
+        بيانات المشروع الأساسية
+      </div>
+      <div class="section-desc">أدخل المعلومات الأساسية للمشروع كما ستظهر في صفحة الغلاف وجميع أقسام التقرير</div>
+
+      <div class="form-group">
+        <label class="form-label"><span class="required">*</span> اسم المشروع</label>
+        <input class="form-input" id="projectName" value="${esc(d.projectName)}" placeholder="مثال: مشروع إنشاء وتنفيذ مخرجات الدراسة الهيدرولوجية...">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">رقم المشروع</label>
+          <input class="form-input" id="projectNumber" value="${esc(d.projectNumber)}" placeholder="رقم المشروع">
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span class="required">*</span> الجهة الحكومية</label>
+          <input class="form-input" id="governmentEntity" value="${esc(d.governmentEntity)}" placeholder="مثال: جامعة أم القرى">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label"><span class="required">*</span> استشاري الهندسة القيمية</label>
+          <input class="form-input" id="consultant" value="${esc(d.consultant)}" placeholder="اسم الاستشاري">
+        </div>
+        <div class="form-group">
+          <label class="form-label">استشاري التصميم</label>
+          <input class="form-input" id="designConsultant" value="${esc(d.designConsultant)}" placeholder="اسم استشاري التصميم">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label"><span class="required">*</span> التكلفة الأساسية للمشروع (بدون ضريبة)</label>
+          <input class="form-input" id="baseCost" type="text" value="${esc(d.baseCost)}" placeholder="بالريال السعودي" oninput="formatNumber(this)">
+        </div>
+        <div class="form-group">
+          <label class="form-label">التكلفة الأساسية (مع الضريبة 15%)</label>
+          <input class="form-input" id="baseCostWithVAT" type="text" value="${esc(d.baseCostWithVAT)}" placeholder="يتم حسابها تلقائياً" style="background:#f0f0f0">
+        </div>
+      </div>
+
+      <div class="form-row-3">
+        <div class="form-group">
+          <label class="form-label">تاريخ التقرير</label>
+          <input class="form-input" id="studyDate" type="date" value="${d.studyDate}">
+        </div>
+        <div class="form-group">
+          <label class="form-label">بداية ورشة العمل</label>
+          <input class="form-input" id="workshopStartDate" type="date" value="${d.workshopStartDate}">
+        </div>
+        <div class="form-group">
+          <label class="form-label">نهاية ورشة العمل</label>
+          <input class="form-input" id="workshopEndDate" type="date" value="${d.workshopEndDate}">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">مرحلة التصميم</label>
+          <select class="form-select" id="designPhase">
+            <option value="">اختر المرحلة</option>
+            <option ${d.designPhase==='التصميم المبدئي'?'selected':''}>التصميم المبدئي</option>
+            <option ${d.designPhase==='التصميم التفصيلي'?'selected':''}>التصميم التفصيلي</option>
+            <option ${d.designPhase==='مرحلة 30%'?'selected':''}>مرحلة 30%</option>
+            <option ${d.designPhase==='مرحلة 60%'?'selected':''}>مرحلة 60%</option>
+            <option ${d.designPhase==='مرحلة 90%'?'selected':''}>مرحلة 90%</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">عدد أيام ورشة العمل</label>
+          <select class="form-select" id="workshopDays">
+            <option ${d.workshopDays==='2'?'selected':''}>2</option>
+            <option ${d.workshopDays==='3'?'selected':''}>3</option>
+            <option ${d.workshopDays==='4'?'selected':''}>4</option>
+            <option ${d.workshopDays==='5'?'selected':''}>5</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">مقدمة عن المشروع</label>
+        <textarea class="form-textarea" id="projectIntro" placeholder="وصف موجز عن المشروع وأهدافه...">${esc(d.projectIntro)}</textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">نطاق عمل المشروع وموقعه</label>
+        <textarea class="form-textarea" id="projectScope" placeholder="وصف نطاق الأعمال والموقع الجغرافي...">${esc(d.projectScope)}</textarea>
+      </div>
+
+      ${renderActions(0, 1, 2)}
+    </div>
+  `;
+}
+
+// ==================== STEP 2: TEAM & DOCS ====================
+function renderTeamDocs() {
+  return `
+    <div class="section-card">
+      <div class="section-title">
+        <span class="icon">👥</span>
+        فريق الهندسة القيمية
+      </div>
+      <div class="section-desc">أعضاء الفريق المشاركون في ورشة العمل</div>
+
+      <div class="dynamic-list" id="teamList">
+        ${state.teamMembers.map((m, i) => `
+          <div class="dynamic-item">
+            <span class="item-num">${i+1}</span>
+            <div class="item-content">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <input placeholder="الاسم" value="${esc(m.name)}" onchange="updateTeam(${i},'name',this.value)">
+                <input placeholder="الجهة" value="${esc(m.entity)}" onchange="updateTeam(${i},'entity',this.value)">
+                <input placeholder="الوظيفة" value="${esc(m.role)}" onchange="updateTeam(${i},'role',this.value)">
+                <input placeholder="التخصص" value="${esc(m.specialty)}" onchange="updateTeam(${i},'specialty',this.value)">
+                <input placeholder="الهاتف" value="${esc(m.phone)}" onchange="updateTeam(${i},'phone',this.value)">
+                <input placeholder="البريد الإلكتروني" value="${esc(m.email)}" onchange="updateTeam(${i},'email',this.value)">
+              </div>
+            </div>
+            ${state.teamMembers.length > 1 ? `<button class="btn-remove" onclick="removeTeam(${i})">✕</button>` : ''}
+          </div>
+        `).join('')}
+      </div>
+      <button class="btn-add" onclick="addTeam()">+ إضافة عضو</button>
+    </div>
+
+    <div class="section-card">
+      <div class="section-title">
+        <span class="icon">📁</span>
+        الوثائق والمستندات المرجعية
+      </div>
+      <div class="section-desc">المستندات التي تم الاعتماد عليها في الدراسة</div>
+
+      <div class="dynamic-list">
+        ${state.documents.map((d, i) => `
+          <div class="dynamic-item">
+            <span class="item-num">${i+1}</span>
+            <div class="item-content">
+              <input placeholder="اسم المستند" value="${esc(d.name)}" onchange="updateDoc(${i},this.value)">
+            </div>
+            ${state.documents.length > 1 ? `<button class="btn-remove" onclick="removeDoc(${i})">✕</button>` : ''}
+          </div>
+        `).join('')}
+      </div>
+      <button class="btn-add" onclick="addDoc()">+ إضافة مستند</button>
+
+      ${renderActions(1, 1, 3)}
+    </div>
+  `;
+}
+
+// ==================== STEP 3: ANALYSIS ====================
+function renderAnalysis() {
+  return `
+    <div class="section-card">
+      <div class="section-title">
+        <span class="icon">💰</span>
+        نماذج تحليل التكاليف
+      </div>
+      <div class="section-desc">بنود التكلفة الرئيسية للمشروع (ستُستخدم في المخططات البيانية)</div>
+
+      <div class="dynamic-list">
+        ${state.costItems.map((c, i) => `
+          <div class="dynamic-item">
+            <span class="item-num">${i+1}</span>
+            <div class="item-content">
+              <div style="display:grid;grid-template-columns:2fr 1fr;gap:8px">
+                <input placeholder="اسم البند" value="${esc(c.name)}" onchange="updateCost(${i},'name',this.value)">
+                <input placeholder="التكلفة (ريال)" type="text" value="${esc(c.cost)}" onchange="updateCost(${i},'cost',this.value)" oninput="formatNumber(this)">
+              </div>
+            </div>
+            ${state.costItems.length > 1 ? `<button class="btn-remove" onclick="removeCost(${i})">✕</button>` : ''}
+          </div>
+        `).join('')}
+      </div>
+      <button class="btn-add" onclick="addCost()">+ إضافة بند</button>
+    </div>
+
+    <div class="section-card">
+      <div class="section-title">
+        <span class="icon">⭐</span>
+        سمات الأداء ونموذج الجودة
+      </div>
+      <div class="section-desc">حدد سمات الأداء ومستوياتها المستهدفة (1-10)</div>
+
+      <div class="dynamic-list">
+        ${state.performanceAttributes.map((a, i) => `
+          <div class="dynamic-item">
+            <span class="item-num">${i+1}</span>
+            <div class="item-content">
+              <div style="display:grid;grid-template-columns:2fr 1fr;gap:8px">
+                <input placeholder="سمة الأداء" value="${esc(a.name)}" onchange="updateAttr(${i},'name',this.value)">
+                <select onchange="updateAttr(${i},'level',this.value)">
+                  ${[1,2,3,4,5,6,7,8,9,10].map(n => `<option ${a.level==n?'selected':''}>${n}</option>`).join('')}
+                </select>
+              </div>
+            </div>
+            ${state.performanceAttributes.length > 1 ? `<button class="btn-remove" onclick="removeAttr(${i})">✕</button>` : ''}
+          </div>
+        `).join('')}
+      </div>
+      <button class="btn-add" onclick="addAttr()">+ إضافة سمة</button>
+
+      ${renderActions(3, 2, 4)}
+    </div>
+  `;
+}
+
+// ==================== STEP 4: IDEAS & EVAL ====================
+function renderIdeasEval() {
+  return `
+    <div class="section-card">
+      <div class="section-title">
+        <span class="icon">🧩</span>
+        تحليل الوظائف
+      </div>
+      <div class="section-desc">قائمة التحديد العشوائي للوظائف (فعل + اسم)</div>
+
+      <div class="dynamic-list">
+        ${state.functions.map((f, i) => `
+          <div class="dynamic-item">
+            <span class="item-num">${i+1}</span>
+            <div class="item-content">
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+                <input placeholder="عنصر المشروع" value="${esc(f.element)}" onchange="updateFunc(${i},'element',this.value)">
+                <input placeholder="الوظيفة (فعل + اسم)" value="${esc(f.func)}" onchange="updateFunc(${i},'func',this.value)">
+                <select onchange="updateFunc(${i},'classification',this.value)">
+                  <option value="">التصنيف</option>
+                  <option ${f.classification==='أساسية'?'selected':''}>أساسية</option>
+                  <option ${f.classification==='ثانوية'?'selected':''}>ثانوية</option>
+                  <option ${f.classification==='مطلوبة'?'selected':''}>مطلوبة</option>
+                </select>
+              </div>
+            </div>
+            ${state.functions.length > 1 ? `<button class="btn-remove" onclick="removeFunc(${i})">✕</button>` : ''}
+          </div>
+        `).join('')}
+      </div>
+      <button class="btn-add" onclick="addFunc()">+ إضافة وظيفة</button>
+
+      <div class="form-group" style="margin-top:20px">
+        <label class="form-label">الوظائف ذات الأولوية</label>
+        ${state.priorityFunctions.map((p, i) => `
+          <div style="display:flex;gap:8px;margin-bottom:8px">
+            <input class="form-input" value="${esc(p)}" placeholder="وظيفة ذات أولوية" onchange="updatePriority(${i},this.value)" style="flex:1">
+            ${state.priorityFunctions.length > 1 ? `<button class="btn-remove" onclick="removePriority(${i})">✕</button>` : ''}
+          </div>
+        `).join('')}
+        <button class="btn-add" onclick="addPriority()">+ إضافة وظيفة ذات أولوية</button>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-title">
+        <span class="icon">💡</span>
+        مرحلة طرح الأفكار والتقييم
+      </div>
+      <div class="section-desc">أدخل الأفكار مع التقييم الحرفي (A: ممتاز، B: جيد، C: مقبول، D: مستبعد)</div>
+
+      <div class="dynamic-list">
+        ${state.ideas.map((idea, i) => `
+          <div class="dynamic-item">
+            <span class="item-num">${i+1}</span>
+            <div class="item-content">
+              <div style="display:grid;grid-template-columns:100px 1fr 80px;gap:8px">
+                <input placeholder="رقم الفكرة" value="${esc(idea.number)}" onchange="updateIdea(${i},'number',this.value)">
+                <input placeholder="وصف الفكرة" value="${esc(idea.description)}" onchange="updateIdea(${i},'description',this.value)">
+                <select onchange="updateIdea(${i},'evaluation',this.value)">
+                  <option value="">التقييم</option>
+                  <option ${idea.evaluation==='A'?'selected':''}>A</option>
+                  <option ${idea.evaluation==='B'?'selected':''}>B</option>
+                  <option ${idea.evaluation==='C'?'selected':''}>C</option>
+                  <option ${idea.evaluation==='D'?'selected':''}>D</option>
+                </select>
+              </div>
+            </div>
+            ${state.ideas.length > 1 ? `<button class="btn-remove" onclick="removeIdea(${i})">✕</button>` : ''}
+          </div>
+        `).join('')}
+      </div>
+      <button class="btn-add" onclick="addIdea()">+ إضافة فكرة</button>
+
+      ${renderActions(4, 3, 5)}
+    </div>
+  `;
+}
+
+// ==================== STEP 5: PROPOSALS ====================
+function renderProposals() {
+  return `
+    <div class="section-card">
+      <div class="section-title">
+        <span class="icon">📝</span>
+        مرحلة التطوير - المقترحات التطويرية
+      </div>
+      <div class="section-desc">حوّل الأفكار المقبولة (A, B, C) إلى مقترحات تطويرية مفصلة</div>
+
+      <div class="info-box">
+        ℹ️ كل مقترح يجب أن يتضمن: وصف التصميم الأساسي، المقترح البديل، المزايا، السلبيات، الأثر المالي، وتحليل المخاطر
+      </div>
+
+      ${state.proposals.map((p, i) => `
+        <div class="proposal-card">
+          <div class="proposal-header">
+            <div class="proposal-num">المقترح ${p.number || 'VE-0'+(i+1)}</div>
+            ${state.proposals.length > 1 ? `<button class="btn-remove" onclick="removeProposal(${i})" style="font-size:14px">حذف المقترح ✕</button>` : ''}
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">رقم المقترح</label>
+              <input class="form-input" value="${esc(p.number)}" onchange="updateProposal(${i},'number',this.value)">
+            </div>
+            <div class="form-group">
+              <label class="form-label">عنوان المقترح</label>
+              <input class="form-input" value="${esc(p.title)}" onchange="updateProposal(${i},'title',this.value)" placeholder="مثال: استخدام مواد بناء محلية الصنع">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">وصف التصميم الأساسي (الوضع الراهن)</label>
+            <textarea class="form-textarea" onchange="updateProposal(${i},'currentDesign',this.value)" placeholder="وصف الوضع الحالي في التصميم...">${esc(p.currentDesign)}</textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">وصف المقترح البديل</label>
+            <textarea class="form-textarea" onchange="updateProposal(${i},'proposedDesign',this.value)" placeholder="وصف التصميم البديل المقترح...">${esc(p.proposedDesign)}</textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">المزايا والإيجابيات</label>
+              <textarea class="form-textarea" style="min-height:80px" onchange="updateProposal(${i},'advantages',this.value)" placeholder="اذكر مزايا المقترح...">${esc(p.advantages)}</textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">السلبيات والتحديات</label>
+              <textarea class="form-textarea" style="min-height:80px" onchange="updateProposal(${i},'disadvantages',this.value)" placeholder="اذكر سلبيات المقترح إن وجدت...">${esc(p.disadvantages)}</textarea>
+            </div>
+          </div>
+
+          <div class="form-row-3">
+            <div class="form-group">
+              <label class="form-label">مقدار الأثر المالي (ريال)</label>
+              <input class="form-input" type="text" value="${esc(p.costImpact)}" onchange="updateProposal(${i},'costImpact',this.value)" oninput="formatNumber(this)" placeholder="المبلغ">
+            </div>
+            <div class="form-group">
+              <label class="form-label">تصنيف الأثر المالي</label>
+              <select class="form-select" onchange="updateProposal(${i},'impactType',this.value)">
+                <option ${p.impactType==='تفادي تكلفة'?'selected':''}>تفادي تكلفة</option>
+                <option ${p.impactType==='تكلفة إضافية'?'selected':''}>تكلفة إضافية</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">معامل التعديل</label>
+              <input class="form-input" value="${esc(p.adjustmentFactor)}" onchange="updateProposal(${i},'adjustmentFactor',this.value)" placeholder="1.0">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">مبرر معامل التعديل</label>
+            <input class="form-input" value="${esc(p.adjustmentReason)}" onchange="updateProposal(${i},'adjustmentReason',this.value)" placeholder="سبب التعديل إن وجد">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">أثر المقترح على الأداء والجودة</label>
+            <textarea class="form-textarea" style="min-height:70px" onchange="updateProposal(${i},'performanceImpact',this.value)" placeholder="تأثير المقترح على سمات الأداء...">${esc(p.performanceImpact)}</textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">تحليل المخاطر</label>
+            <textarea class="form-textarea" style="min-height:70px" onchange="updateProposal(${i},'riskAnalysis',this.value)" placeholder="المخاطر المحتملة وكيفية التعامل معها...">${esc(p.riskAnalysis)}</textarea>
+          </div>
+        </div>
+      `).join('')}
+
+      <button class="btn-add" onclick="addProposal()">+ إضافة مقترح تطويري</button>
+
+      ${renderActions(5, 4, 6)}
+    </div>
+  `;
+}
+
+// ==================== STEP 6: PREVIEW ====================
+function renderPreview() {
+  return `
+    <div class="section-card">
+      <div class="section-title">
+        <span class="icon">📄</span>
+        معاينة التقرير النهائي
+      </div>
+      <div class="section-desc">راجع التقرير قبل التصدير - يمكنك تحميله بصيغة Word أو PDF</div>
+
+      <div class="download-actions">
+        <button class="btn btn-gold" onclick="downloadWord()">
+          📥 تحميل Word (.docx)
+        </button>
+        <button class="btn btn-primary" onclick="downloadPDF()">
+          📥 تحميل PDF
+        </button>
+        <button class="btn btn-secondary" onclick="goToStep(1)">
+          ← تعديل البيانات
+        </button>
+      </div>
+
+      <div class="preview-container" id="reportPreview">
+        ${generateReportHTML()}
+      </div>
+
+      <div class="download-actions" style="margin-top:24px">
+        <button class="btn btn-gold" onclick="downloadWord()">
+          📥 تحميل Word (.docx)
+        </button>
+        <button class="btn btn-primary" onclick="downloadPDF()">
+          📥 تحميل PDF
+        </button>
+      </div>
+    </div>
+
+    <div class="footer">
+      بواسطة المهندس <strong>جاسر العتيبي</strong>
+    </div>
+  `;
+}
+
+// ==================== REPORT GENERATION ====================
+function generateReportHTML() {
+  const d = state.projectData;
+  const baseCostNum = parseFloat((d.baseCost||'0').replace(/,/g,''));
+  const vatCost = baseCostNum * 1.15;
+
+  // Calculate financial summary
+  let totalAvoidance = 0;
+  let totalAdditional = 0;
+  state.proposals.forEach(p => {
+    const impact = parseFloat((p.costImpact||'0').replace(/,/g,''));
+    const factor = parseFloat(p.adjustmentFactor || '1.0');
+    const adjusted = impact * factor;
+    if (p.impactType === 'تفادي تكلفة') totalAvoidance += adjusted;
+    else totalAdditional += adjusted;
+  });
+  const avoidancePercent = baseCostNum > 0 ? ((totalAvoidance / baseCostNum) * 100).toFixed(2) : '0';
+
+  const developedIdeas = state.ideas.filter(i => ['A','B','C'].includes(i.evaluation));
+  const excludedIdeas = state.ideas.filter(i => i.evaluation === 'D');
+  const designConsiderations = state.ideas.filter(i => i.evaluation === 'C');
+
+  const formatDate = (d) => d ? new Date(d).toLocaleDateString('ar-SA') : '___/___/______';
+  const fNum = (n) => n ? Number(n).toLocaleString('ar-SA') : '-';
+
+  return `
+    <div style="text-align:center;margin-bottom:40px;padding:30px;background:linear-gradient(135deg,#0B4F6C,#1A7FA8);color:white;border-radius:16px">
+      <div style="font-size:14px;margin-bottom:8px;opacity:0.8">هيئة كفاءة الإنفاق والمشروعات الحكومية (EXPRO)</div>
+      <h1 style="color:white;border:none;margin:0;font-size:26px;padding:0">تقرير دراسة الهندسة القيمية</h1>
+      <div style="margin-top:12px;font-size:13px;opacity:0.7">رقم الوثيقة: EPM-KEV-TP-000002 | الإصدار: 000</div>
+      <div style="margin-top:16px;background:rgba(255,255,255,0.15);display:inline-block;padding:8px 24px;border-radius:8px">
+        <strong>${esc(d.projectName) || 'اسم المشروع'}</strong>
+      </div>
+      <div style="margin-top:12px;font-size:13px">
+        الجهة: ${esc(d.governmentEntity) || '___'} | التاريخ: ${formatDate(d.studyDate)}
+      </div>
+    </div>
+
+    <!-- إحصائيات الدراسة -->
+    <div style="background:var(--bg);border-radius:12px;padding:20px;margin-bottom:24px">
+      <h3 style="text-align:center;margin-bottom:16px">إحصائيات الدراسة</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:14px">
+        <div><strong>التكلفة الأساسية للمشروع:</strong> ${fNum(baseCostNum)} ريال سعودي</div>
+        <div><strong>التكلفة الأساسية (مع الضريبة):</strong> ${fNum(vatCost.toFixed(0))} ريال سعودي</div>
+        <div><strong>تفادي التكاليف المحتمل:</strong> ${fNum(totalAvoidance.toFixed(0))} ريال سعودي</div>
+        <div><strong>نسبة تفادي التكاليف:</strong> ${avoidancePercent}%</div>
+        <div><strong>العدد الكلي للأفكار:</strong> ${state.ideas.length} فكرة</div>
+        <div><strong>العدد الكلي للأفكار المطورة:</strong> ${developedIdeas.length} فكرة</div>
+        <div><strong>العدد الكلي للاعتبارات التصميمية:</strong> ${designConsiderations.length} فكرة</div>
+        <div><strong>العدد الكلي للأفكار المستبعدة:</strong> ${excludedIdeas.length} فكرة</div>
+        <div><strong>العدد الكلي لأعضاء الفريق:</strong> ${state.teamMembers.length} عضو</div>
+      </div>
+    </div>
+
+    <!-- 1. الملخص التنفيذي -->
+    <h2>1. الملخص التنفيذي</h2>
+
+    <h3>1-1 مقدمة</h3>
+    <p>يلخص هذا التقرير أنشطة دراسة الهندسة القيمية التي تم تنفيذها لصالح <strong>${esc(d.governmentEntity) || '[الجهة الحكومية]'}</strong>، بقيادة <strong>${esc(d.consultant) || '[استشاري الهندسة القيمية]'}</strong>.</p>
+    <p>وتغطي الدراسة مشروع <strong>${esc(d.projectName) || '[اسم المشروع]'}</strong>. فيما امتدت ورشة العمل على مدى <strong>${d.workshopDays || '___'}</strong> أيام خلال الفترة من <strong>${formatDate(d.workshopStartDate)}</strong> إلى <strong>${formatDate(d.workshopEndDate)}</strong>.</p>
+    <p>وقد أعدّ تصميم المشروع <strong>${esc(d.designConsultant) || '[استشاري التصميم]'}</strong> في حين أُجريت دراسة الهندسة القيمية خلال مرحلة <strong>${d.designPhase || '[مرحلة التصميم]'}</strong> من التصميم.</p>
+    <p>وتهدف دراسة الهندسة القيمية هذه إلى:</p>
+    <ul style="padding-right:24px;line-height:2.2">
+      <li>تطبيق مبادئ ومراحل خطة عمل الهندسة القيمية.</li>
+      <li>إجراء مراجعة وتحليل شامل للعناصر الرئيسية في المشروع باستخدام فريق متعدد التخصصات، من خلال تحليل الوظائف.</li>
+      <li>البحث عن أفكار متنوعة يمكن أن تُحسّن القيمة وتُسهم في تحقيق أهداف المشروع.</li>
+      <li>تطبيق تقنيات تقييم مهنية على الأفكار المطروحة وفقًا لمنهجية الهندسة القيمية.</li>
+      <li>تحديد الفرص الممكنة لإضافة قيمة وتحقيق تفادي في التكاليف.</li>
+      <li>تطوير الأفكار الواعدة بما يُسهم في تحسين ممارسات التصميم وتوجيه المراحل التالية من العمل التصميمي.</li>
+    </ul>
+
+    <h3>1-2 ملخص دراسة الهندسة القيمية</h3>
+    <p>أُجريت دراسة الهندسة القيمية لتعظيم قيمة المشروع بتحسين الأداء وترشيد استخدام الموارد.</p>
+    <div style="background:var(--bg);padding:16px;border-radius:8px;margin:12px 0">
+      <div style="margin:4px 0"><strong>التكلفة الأساسية للمشروع:</strong> ${fNum(baseCostNum)} ريال سعودي</div>
+      <div style="margin:4px 0"><strong>التكلفة الأساسية (مع الضريبة):</strong> ${fNum(vatCost.toFixed(0))} ريال سعودي</div>
+      <div style="margin:4px 0"><strong>تفادي التكاليف المحتمل:</strong> ${fNum(totalAvoidance.toFixed(0))} ريال سعودي</div>
+      <div style="margin:4px 0"><strong>نسبة تفادي التكاليف:</strong> ${avoidancePercent}%</div>
+    </div>
+
+    <h3>1-3 ملخص الأثر المالي للمقترحات</h3>
+    <table>
+      <tr>
+        <th>مسلسل</th><th>رقم المقترح</th><th>تصنيف الأثر المالي</th><th>مقدار الأثر المالي</th><th>معامل التعديل</th><th>مبرر المعامل</th><th>الأثر المالي المعدّل</th>
+      </tr>
+      ${state.proposals.map((p, i) => {
+        const impact = parseFloat((p.costImpact||'0').replace(/,/g,''));
+        const factor = parseFloat(p.adjustmentFactor||'1.0');
+        return `<tr>
+          <td>${i+1}</td>
+          <td>${esc(p.number)}</td>
+          <td>${esc(p.impactType)}</td>
+          <td>${fNum(impact)}</td>
+          <td>${factor}</td>
+          <td>${esc(p.adjustmentReason) || '-'}</td>
+          <td>${fNum((impact*factor).toFixed(0))}</td>
+        </tr>`;
+      }).join('')}
+      <tr style="background:var(--primary);color:white;font-weight:700">
+        <td colspan="6">مجموع تفادي التكاليف المحتمل</td>
+        <td>${fNum(totalAvoidance.toFixed(0))} ريال</td>
+      </tr>
+      <tr style="font-weight:700">
+        <td colspan="6">مجموع التكاليف الإضافية المحتملة</td>
+        <td>${fNum(totalAdditional.toFixed(0))} ريال</td>
+      </tr>
+      <tr style="font-weight:700">
+        <td colspan="6">التكلفة الأساسية للمشروع (بدون ضريبة)</td>
+        <td>${fNum(baseCostNum)} ريال</td>
+      </tr>
+      <tr style="background:var(--accent);font-weight:700">
+        <td colspan="6">نسبة تفادي التكاليف</td>
+        <td>${avoidancePercent}%</td>
+      </tr>
+    </table>
+
+    <h3>1-5 فريق الهندسة القيمية</h3>
+    <table>
+      <tr><th>الرقم</th><th>الاسم</th><th>الجهة</th><th>الوظيفة</th><th>التخصص</th></tr>
+      ${state.teamMembers.map((m, i) => `
+        <tr><td>${i+1}</td><td>${esc(m.name)}</td><td>${esc(m.entity)}</td><td>${esc(m.role)}</td><td>${esc(m.specialty)}</td></tr>
+      `).join('')}
+    </table>
+
+    <!-- 2. نظرة عامة عن المشروع -->
+    <h2>2. نظرة عامة عن المشروع</h2>
+
+    <h3>2-1 مقدمة عن المشروع</h3>
+    <p>${esc(d.projectIntro) || 'يهدف هذا المشروع إلى تحقيق متطلبات الجهة الحكومية وفق أعلى معايير الجودة والكفاءة.'}</p>
+
+    <h3>2-2 نطاق عمل المشروع وموقعه</h3>
+    <p>${esc(d.projectScope) || 'يقع المشروع ضمن النطاق الجغرافي المحدد ويشمل كافة الأعمال المطلوبة لتحقيق أهدافه.'}</p>
+
+    <h3>2-3 الوثائق والمستندات المرجعية</h3>
+    <table>
+      <tr><th>الرقم</th><th>المستند</th></tr>
+      ${state.documents.map((doc, i) => `
+        <tr><td>${i+1}</td><td>${esc(doc.name) || '-'}</td></tr>
+      `).join('')}
+    </table>
+
+    <!-- 3. خطة عمل الهندسة القيمية -->
+    <h2>3. خطة عمل الهندسة القيمية</h2>
+    <p>تُعتبر مراحل خطة العمل العمود الفقري لتطبيق منهجية الهندسة القيمية، حيث تمثل تسلسلًا منطقيًا من الخطوات يضمن تحقيق أقصى استفادة من العملية. يُعد الالتزام بهذه المراحل أمرًا ضروريًا لضمان التطبيق الصحيح للمنهجية.</p>
+
+    <h3>3-1 مرحلة الإعداد</h3>
+    <p>مرحلة الإعداد في الهندسة القيمية تُعد حجر الأساس لنجاح دراسة الهندسة القيمية، حيث تُحدد الإطار العام للدراسة وتُهيئ الظروف لتحقيق أقصى استفادة ممكنة. وتشمل: تحديد الأهداف والغايات، تحديد أعضاء الفريق، وضع الأجندة، والتنسيقات اللوجستية اللازمة.</p>
+
+    <h3>3-2 ورشة عمل الهندسة القيمية</h3>
+    <p>تغطي ورشة العمل المراحل من عرض وتحليل المعلومات إلى عرض المقترحات، حيث يشارك فريق متعدد التخصصات بقيادة استشاري الهندسة القيمية في تنفيذ هذه المراحل بصورة تفاعلية ومنظمة.</p>
+
+    <!-- 4. تحليل المعلومات وإعداد النماذج -->
+    <h2>4. تحليل المعلومات وإعداد النماذج</h2>
+
+    <h3>4-1 نماذج تحليل التكاليف</h3>
+    ${state.costItems.filter(c=>c.name).length > 0 ? `
+    <table>
+      <tr><th>البند</th><th>التكلفة (ريال)</th><th>النسبة</th></tr>
+      ${state.costItems.filter(c=>c.name).map(c => {
+        const costVal = parseFloat((c.cost||'0').replace(/,/g,''));
+        const pct = baseCostNum > 0 ? ((costVal/baseCostNum)*100).toFixed(1) : '0';
+        return `<tr><td>${esc(c.name)}</td><td>${fNum(costVal)}</td><td>${pct}%</td></tr>`;
+      }).join('')}
+    </table>` : '<p>لم يتم إدخال بنود تكاليف.</p>'}
+
+    <h3>4-2 سمات الأداء</h3>
+    <table>
+      <tr><th>سمة الأداء</th><th>المستوى المستهدف</th></tr>
+      ${state.performanceAttributes.filter(a=>a.name).map(a => `
+        <tr><td>${esc(a.name)}</td><td>${a.level}</td></tr>
+      `).join('')}
+    </table>
+
+    <!-- 5. مرحلة تحليل الوظائف -->
+    <h2>5. مرحلة تحليل الوظائف</h2>
+    <p>تهدف مرحلة تحليل الوظائف إلى تحديد الغرض الرئيسي من المشروع ومكوناته، وتُتيح فرصة لفتح آفاق جديدة في التفكير وتطوير مقترحات مبتكرة تُسهم في تعزيز قيمة المشروع.</p>
+
+    ${state.functions.filter(f=>f.element).length > 0 ? `
+    <table>
+      <tr><th>مسلسل</th><th>عنصر المشروع</th><th>الوظيفة (فعل + اسم)</th><th>تصنيف الوظيفة</th></tr>
+      ${state.functions.filter(f=>f.element).map((f,i) => `
+        <tr><td>${i+1}</td><td>${esc(f.element)}</td><td>${esc(f.func)}</td><td>${esc(f.classification)}</td></tr>
+      `).join('')}
+    </table>` : ''}
+
+    ${state.priorityFunctions.filter(p=>p).length > 0 ? `
+    <h3>الوظائف ذات الأولوية</h3>
+    <ul style="padding-right:24px">
+      ${state.priorityFunctions.filter(p=>p).map(p => `<li>${esc(p)}</li>`).join('')}
+    </ul>` : ''}
+
+    <!-- 6. مرحلة طرح الأفكار -->
+    <h2>6. مرحلة طرح الأفكار</h2>
+    <p>تأتي هذه المرحلة بعد الانتهاء من تحليل وظائف المشروع وتحديد الوظائف ذات الأولوية. وتهدف إلى توليد أكبر عدد ممكن من الأفكار من خلال تعاون أعضاء الفريق ضمن بيئة تفاعلية محفّزة.</p>
+    <table>
+      <tr><th>مسلسل</th><th>رقم الفكرة</th><th>وصف الفكرة</th></tr>
+      ${state.ideas.map((idea,i) => `
+        <tr><td>${i+1}</td><td>${esc(idea.number)}</td><td>${esc(idea.description)}</td></tr>
+      `).join('')}
+    </table>
+
+    <!-- 7. مرحلة التقييم -->
+    <h2>7. مرحلة التقييم</h2>
+    <p>تم تقييم الأفكار باستخدام أسلوب التقييم بالرموز الحرفية (Letter Grade Evaluation)، حيث يُمنح كل مقترح رمزًا حرفيًا (A, B, C, D) يعكس مدى توافقه مع معايير التقييم. الأفكار التي حصلت على تقييم (A أو B أو C) تم أخذها ضمن مرحلة التطوير، بينما استُبعدت الأفكار التي حصلت على تقييم (D).</p>
+
+    <table>
+      <tr><th>مسلسل</th><th>رقم الفكرة</th><th>وصف الفكرة</th><th>التقييم</th></tr>
+      ${state.ideas.map((idea,i) => `
+        <tr>
+          <td>${i+1}</td>
+          <td>${esc(idea.number)}</td>
+          <td>${esc(idea.description)}</td>
+          <td style="font-weight:700;color:${idea.evaluation==='D'?'var(--danger)':'var(--success)'}">${idea.evaluation || '-'}</td>
+        </tr>
+      `).join('')}
+    </table>
+
+    <!-- 8. مرحلة التطوير -->
+    <h2>8. مرحلة التطوير</h2>
+    <p>نتج عن مرحلة طرح الأفكار ما مجموعه <strong>${state.ideas.length}</strong> فكرة، وبناءً على معايير التقييم تم اختيار <strong>${developedIdeas.length}</strong> فكرة لتطويرها نظرًا لما تحمله من فرص واعدة لتحسين قيمة المشروع.</p>
+
+    ${state.proposals.map((p, i) => {
+      const impact = parseFloat((p.costImpact||'0').replace(/,/g,''));
+      const factor = parseFloat(p.adjustmentFactor||'1.0');
+      return `
+      <div style="border:2px solid var(--primary);border-radius:12px;padding:20px;margin:16px 0">
+        <div style="background:var(--primary);color:white;display:inline-block;padding:4px 16px;border-radius:8px;font-weight:700;margin-bottom:12px">المقترح ${esc(p.number)}: ${esc(p.title)}</div>
+
+        <h3>وصف التصميم الأساسي (الوضع الراهن)</h3>
+        <p>${esc(p.currentDesign) || '-'}</p>
+
+        <h3>وصف المقترح البديل</h3>
+        <p>${esc(p.proposedDesign) || '-'}</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0">
+          <div style="background:#E8F5E9;padding:12px;border-radius:8px">
+            <strong style="color:var(--success)">المزايا والإيجابيات:</strong>
+            <p style="margin-top:4px">${esc(p.advantages) || '-'}</p>
+          </div>
+          <div style="background:#FFF3E0;padding:12px;border-radius:8px">
+            <strong style="color:var(--warning)">السلبيات والتحديات:</strong>
+            <p style="margin-top:4px">${esc(p.disadvantages) || 'لا توجد سلبيات جوهرية'}</p>
+          </div>
+        </div>
+
+        <table>
+          <tr><th>تصنيف الأثر المالي</th><th>مقدار الأثر المالي</th><th>معامل التعديل</th><th>الأثر المالي المعدّل</th></tr>
+          <tr>
+            <td>${esc(p.impactType)}</td>
+            <td>${fNum(impact)} ريال</td>
+            <td>${factor}</td>
+            <td style="font-weight:700">${fNum((impact*factor).toFixed(0))} ريال</td>
+          </tr>
+        </table>
+
+        ${p.performanceImpact ? `<h3>أثر المقترح على الأداء والجودة</h3><p>${esc(p.performanceImpact)}</p>` : ''}
+        ${p.riskAnalysis ? `<h3>تحليل المخاطر</h3><p>${esc(p.riskAnalysis)}</p>` : ''}
+      </div>
+    `}).join('')}
+
+    <div style="text-align:center;margin-top:40px;padding:20px;background:var(--bg);border-radius:12px;color:var(--text-secondary);font-size:13px">
+      <div>رقم الوثيقة: EPM-KEV-TP-000002 | الإصدار: 000</div>
+      <div style="margin-top:4px">إن هذا المستند ملكية خاصة لهيئة كفاءة الإنفاق والمشروعات الحكومية، ويخضع للقيود الموضحة بالإشعار الهام</div>
+    </div>
+  `;
+}
+
+// ==================== ACTIONS ====================
+function renderActions(step, prevStep, nextStep) {
+  return `
+    <div class="actions">
+      <button class="btn btn-secondary" onclick="goToStep(${prevStep})">→ السابق</button>
+      <button class="btn btn-primary" onclick="saveAndNext(${nextStep})">${nextStep === 6 ? 'معاينة التقرير' : 'التالي'} ←</button>
+    </div>
+  `;
+}
+
+// ==================== EVENT HANDLERS ====================
+function attachEvents() {
+  // Project data inputs
+  const fields = ['projectName','projectNumber','governmentEntity','consultant','designConsultant','baseCost','baseCostWithVAT','studyDate','workshopStartDate','workshopEndDate','workshopDays','designPhase','projectIntro','projectScope','siteDescription'];
+  fields.forEach(f => {
+    const el = document.getElementById(f);
+    if (el) {
+      el.addEventListener('change', () => {
+        state.projectData[f] = el.value;
+        if (f === 'baseCost') {
+          const num = parseFloat(el.value.replace(/,/g,''));
+          if (!isNaN(num)) {
+            state.projectData.baseCostWithVAT = (num * 1.15).toLocaleString();
+            const vatEl = document.getElementById('baseCostWithVAT');
+            if (vatEl) vatEl.value = state.projectData.baseCostWithVAT;
+          }
+        }
+      });
+    }
+  });
+}
+
+function formatNumber(el) {
+  let val = el.value.replace(/[^\d.]/g,'');
+  if (val) {
+    const parts = val.split('.');
+    parts[0] = parseInt(parts[0]).toLocaleString();
+    el.value = parts.join('.');
+  }
+}
+
+function goToStep(step) {
+  saveCurrentStep();
+  state.currentStep = step;
+  render();
+  window.scrollTo(0, 0);
+}
+
+function saveAndNext(nextStep) {
+  saveCurrentStep();
+  state.currentStep = nextStep;
+  if (nextStep === 6) {
+    state.loading = true;
+    render();
+    setTimeout(() => {
+      state.loading = false;
+      render();
+      window.scrollTo(0, 0);
+    }, 1500);
+  } else {
+    render();
+    window.scrollTo(0, 0);
+  }
+}
+
+function saveCurrentStep() {
+  const fields = ['projectName','projectNumber','governmentEntity','consultant','designConsultant','baseCost','baseCostWithVAT','studyDate','workshopStartDate','workshopEndDate','workshopDays','designPhase','projectIntro','projectScope'];
+  fields.forEach(f => {
+    const el = document.getElementById(f);
+    if (el) state.projectData[f] = el.value;
+  });
+}
+
+// Team
+function updateTeam(i, field, val) { state.teamMembers[i][field] = val; }
+function addTeam() { state.teamMembers.push({name:'',entity:'',role:'',specialty:'',phone:'',email:''}); render(); }
+function removeTeam(i) { state.teamMembers.splice(i,1); render(); }
+
+// Documents
+function updateDoc(i, val) { state.documents[i].name = val; }
+function addDoc() { state.documents.push({name:''}); render(); }
+function removeDoc(i) { state.documents.splice(i,1); render(); }
+
+// Cost Items
+function updateCost(i, field, val) { state.costItems[i][field] = val; }
+function addCost() { state.costItems.push({name:'',cost:''}); render(); }
+function removeCost(i) { state.costItems.splice(i,1); render(); }
+
+// Performance Attributes
+function updateAttr(i, field, val) { state.performanceAttributes[i][field] = val; }
+function addAttr() { state.performanceAttributes.push({name:'',level:'8'}); render(); }
+function removeAttr(i) { state.performanceAttributes.splice(i,1); render(); }
+
+// Functions
+function updateFunc(i, field, val) { state.functions[i][field] = val; }
+function addFunc() { state.functions.push({element:'',func:'',classification:''}); render(); }
+function removeFunc(i) { state.functions.splice(i,1); render(); }
+
+// Priority Functions
+function updatePriority(i, val) { state.priorityFunctions[i] = val; }
+function addPriority() { state.priorityFunctions.push(''); render(); }
+function removePriority(i) { state.priorityFunctions.splice(i,1); render(); }
+
+// Ideas
+function updateIdea(i, field, val) { state.ideas[i][field] = val; }
+function addIdea() { state.ideas.push({number:'',description:'',evaluation:''}); render(); }
+function removeIdea(i) { state.ideas.splice(i,1); render(); }
+
+// Proposals
+function updateProposal(i, field, val) { state.proposals[i][field] = val; }
+function addProposal() {
+  const num = state.proposals.length + 1;
+  state.proposals.push({
+    number: 'VE-0'+num, title:'', currentDesign:'', proposedDesign:'',
+    advantages:'', disadvantages:'', costImpact:'', impactType:'تفادي تكلفة',
+    adjustmentFactor:'1.0', adjustmentReason:'', performanceImpact:'', riskAnalysis:''
+  });
+  render();
+}
+function removeProposal(i) { state.proposals.splice(i,1); render(); }
+
+// Download functions
+function downloadWord() {
+  showNotification('جارِ إعداد ملف Word... سيبدأ التحميل بعد إعداد الملف عبر المنصة');
+  const content = document.getElementById('reportPreview').innerHTML;
+  const html = `
+    <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+    <head><meta charset='utf-8'>
+    <style>
+      @page { size: A4; margin: 2cm; }
+      body { font-family: 'Tajawal', 'Arial', sans-serif; direction: rtl; font-size: 14px; line-height: 2; color: #1a1a2e; }
+      h1 { color: #0B4F6C; font-size: 24px; text-align: center; border-bottom: 3px solid #D4AF37; padding-bottom: 12px; }
+      h2 { color: #0B4F6C; font-size: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; margin-top: 24px; }
+      h3 { color: #1A7FA8; font-size: 15px; margin-top: 16px; }
+      table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+      th { background: #0B4F6C; color: white; padding: 8px; font-weight: 600; }
+      td { padding: 6px 8px; border: 1px solid #e2e8f0; }
+      tr:nth-child(even) { background: #f7f8fa; }
+      p { margin: 8px 0; }
+      strong { color: #0B4F6C; }
+    </style></head><body>${content}</body></html>
+  `;
+  const blob = new Blob(['\ufeff', html], {type:'application/msword'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'تقرير_دراسة_الهندسة_القيمية.doc';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function downloadPDF() {
+  showNotification('جارِ إعداد ملف PDF... يرجى استخدام طباعة المتصفح (Ctrl+P) واختيار PDF');
+  const content = document.getElementById('reportPreview').innerHTML;
+  const win = window.open('', '_blank');
+  win.document.write(`
+    <html dir="rtl"><head><meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      @page { size: A4; margin: 2cm; }
+      body { font-family: 'Tajawal', sans-serif; direction: rtl; font-size: 13px; line-height: 1.8; color: #1a1a2e; padding: 20px; }
+      h1 { color: #0B4F6C; font-size: 22px; text-align: center; border-bottom: 3px solid #D4AF37; padding-bottom: 12px; }
+      h2 { color: #0B4F6C; font-size: 17px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; margin-top: 20px; page-break-after: avoid; }
+      h3 { color: #1A7FA8; font-size: 14px; margin-top: 14px; page-break-after: avoid; }
+      table { width: 100%; border-collapse: collapse; margin: 10px 0; page-break-inside: avoid; }
+      th { background: #0B4F6C; color: white; padding: 6px 8px; font-size: 12px; }
+      td { padding: 5px 8px; border: 1px solid #ddd; font-size: 12px; }
+      tr:nth-child(even) { background: #f5f5f5; }
+    </style>
+    </head><body>${content}
+    <script>setTimeout(()=>window.print(),500)<\/script>
+    </body></html>
+  `);
+  win.document.close();
+}
+
+function showNotification(msg) {
+  state.notification = msg;
+  render();
+  setTimeout(() => { state.notification = ''; render(); }, 4000);
+}
+
+function esc(str) {
+  if (!str) return '';
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// Initial render
+render();
+</script>
+</body>
+</html>
